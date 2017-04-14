@@ -1,28 +1,26 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <div class="header"></div>
+    <mavonEditor></mavonEditor>
   </div>
 </template>
 
-<script>
-import Hello from './components/Hello'
-
+<script type="text/ecmascript-6">
+import {mavonEditor} from 'mavon-editor'
 export default {
   name: 'app',
   components: {
-    Hello
+    'mavonEditor': mavonEditor
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="stylus" rel="stylesheet/stylus">
+  body
+    margin 0
+    padding 0
+
+  .header
+    width 100%
+    height 200px
 </style>
