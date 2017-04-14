@@ -20,7 +20,7 @@
       <mavonEditor :toolbars="toolbars" class="item-editor" v-model="help"></mavonEditor>
     </div>
     <div class="item">
-      <span style="display: block;margin: 30px 0 15px 0" class="">
+      <span style="display: block;margin: 30px 0 15px 0;color: #1e6bb8" class="">
         注: 屏幕分辨率低于768px ，取消【单栏|双栏】编辑模式 ，更改为【编辑|预览】切换 ， 并且取消【沉浸式阅读】模式
       </span>
       <img width="100px" height="auto" src="./assets/img/1.png"/>
@@ -60,7 +60,6 @@ export default {
         link: true, // 链接
         code: true, // code
         table: true, // 表格
-        subfield: true, // 是否需要分栏
         fullscreen: true, // 全屏编辑
         help: true // 帮助
       }
