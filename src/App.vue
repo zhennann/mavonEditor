@@ -67,6 +67,8 @@ export default {
       }
     }
   },
+  methods: {
+  },
   components: {
     'mavonEditor': mavonEditor
   }
