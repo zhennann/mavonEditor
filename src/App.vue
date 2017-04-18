@@ -59,8 +59,6 @@ export default {
       toolbars: {
         underline: true, // 下划线
         strikethrough: true, // 中划线
-        link: true, // 链接
-        code: true, // code
         table: true, // 表格
         fullscreen: true, // 全屏编辑
         help: true // 帮助
