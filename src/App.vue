@@ -11,13 +11,13 @@
       <h2 class="item-header">
         默认配置
       </h2>
-      <mavonEditor @save="savedata" class="item-editor" v-model="help1"></mavonEditor>
+      <mavonEditor @save="saveone" class="item-editor" v-model="help1"></mavonEditor>
     </div>
     <div class="item">
       <h2 class="item-header">
         自定义工具栏
       </h2>
-      <mavonEditor :toolbars="toolbars" class="item-editor" v-model="help2"></mavonEditor>
+      <mavonEditor @save="savetwo" :toolbars="toolbars" class="item-editor" v-model="help2"></mavonEditor>
     </div>
     <div class="item">
       <span style="display: block;margin: 30px 0 15px 0;color: #1e6bb8" class="">
@@ -68,8 +68,11 @@ export default {
     }
   },
   methods: {
-    savedata () {
-      alert('save')
+    saveone () {
+      alert('save one')
+    },
+    savetwo () {
+      alert('save two')
     }
   },
   components: {
