@@ -138,11 +138,11 @@ export default {
         margin-left 5%
 
   .item
-    width 70%
-    margin-left 15%
+    width 75%
+    margin-left 12.5%
     @media only screen and (max-width 1100px)
-      width 80%
-      margin-left 10%
+      width 85%
+      margin-left 7.5%
     @media only screen and (max-width 768px)
       width 92%
       margin-left 4%
