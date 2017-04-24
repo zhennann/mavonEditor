@@ -36,13 +36,10 @@
         后续
       </h2>
       <ul>
-        <li>撤销键、清空键、保存按钮</li>
         <li>支持开启标题导航</li>
         <li>滚动条样式的浏览器兼容性</li>
         <li>自定义工具栏功能键</li>
-        <li>提高移动端样式适配性</li>
         <li>markdown样式自定义</li>
-        <li>重构</li>
       </ul>
     </div>
   </div>
@@ -67,11 +64,13 @@ export default {
       }
     }
   },
+  created () {
+  },
   methods: {
-    saveone () {
+    saveone (val, render) {
       alert('save one')
     },
-    savetwo () {
+    savetwo (val, render) {
       alert('save two')
     }
   },
