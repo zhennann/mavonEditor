@@ -7,13 +7,13 @@
       <a href="https://github.com/hinesboy/mavonEditor/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/hinesboy/mavonEditor/master" class="btn">Download .tar.gz</a>
     </section>
-    <div class="item">
+    <div v-show="!screen_phone" class="item">
       <h2 class="item-header">
         默认配置
       </h2>
       <mavonEditor @save="saveone" class="item-editor" v-model="help1"></mavonEditor>
     </div>
-    <div class="item">
+    <div v-show="screen_phone" class="item">
       <h2 class="item-header">
         自定义工具栏
       </h2>
@@ -36,7 +36,9 @@
         后续
       </h2>
       <ul>
-        <li>支持开启标题导航</li>
+        <li style="text-decoration-line: line-through">撤销键、清空键、保存按钮</li>
+        <li style="text-decoration-line: line-through">支持开启标题导航</li>
+        <li style="text-decoration-line: line-through">重构</li>
         <li>支持图片上传</li>
         <li>滚动条样式的浏览器兼容性</li>
         <li>自定义工具栏功能键</li>
@@ -47,38 +49,53 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {mavonEditor} from 'mavon-editor'
-const HELP = require('./assets/help.json')
-export default {
-  name: 'app',
-  data () {
-    return {
-      help1: HELP.help,
-      help2: HELP.help,
-      toolbars: {
-        underline: true, // 下划线
-        strikethrough: true, // 中划线
-        undo: true,
-        save: true,
-        fullscreen: true, // 全屏编辑
-        help: true // 帮助
+  import {mavonEditor} from 'mavon-editor'
+  const HELP = require('./assets/help.json')
+  export default {
+    name: 'app',
+    data () {
+      return {
+        help1: HELP.help,
+        help2: HELP.help,
+        screen_phone: false,
+        toolbars: {
+          underline: true, // 下划线
+          strikethrough: true, // 中划线
+          undo: true,
+          save: true,
+          fullscreen: true, // 全屏编辑
+          navigation: true
+        }
       }
-    }
-  },
-  created () {
-  },
-  methods: {
-    saveone (val, render) {
-      alert('save one')
     },
-    savetwo (val, render) {
-      alert('save two')
+    created () {
+      this.sizeToStatus()
+      window.onresize = function () {
+        // 媒介查询
+        this.sizeToStatus()
+      }
+    },
+    methods: {
+      sizeToStatus () {
+        if (window.matchMedia('(min-width:768px)').matches) {
+          // > 768
+          this.screen_phone = false
+        } else {
+          // <  768
+          this.screen_phone = true
+        }
+      },
+      saveone (val, render) {
+        alert('save one')
+      },
+      savetwo (val, render) {
+        alert('save two')
+      }
+    },
+    components: {
+      'mavonEditor': mavonEditor
     }
-  },
-  components: {
-    'mavonEditor': mavonEditor
   }
-}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -86,6 +103,7 @@ export default {
     margin 0
     padding 0
     padding-bottom 50px
+
   .page-header
     box-sizing border-box
     padding 90px 15px

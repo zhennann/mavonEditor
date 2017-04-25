@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d9b53d4-f384-4f53-a863-f51f2cc51b89" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/css/app.ca44b174551ce332fa41c1e4b8c77886.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/css/app.ca44b174551ce332fa41c1e4b8c77886.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/app.f66f94cb67d1f2651772.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/app.f66f94cb67d1f2651772.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/manifest.4c5bc9ecf4ccd7c4d1af.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/manifest.4c5bc9ecf4ccd7c4d1af.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/vendor.da6191e85df7878caa5a.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/vendor.da6191e85df7878caa5a.js.map" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.vue" afterPath="$PROJECT_DIR$/src/App.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,68 +26,24 @@
         <entry file="file://$PROJECT_DIR$/src/App.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="194">
-              <caret line="42" column="30" lean-forward="false" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dist/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="13" column="18" lean-forward="false" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.3f62b0709705f1b358450f60a409795b.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dist/static/css/app.3f62b0709705f1b358450f60a409795b.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="2" column="55" lean-forward="false" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
+              <caret line="65" column="35" lean-forward="true" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
               <folding>
-                <element signature="e#32742#34983#1" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#0;n#ul#0;n#div#4;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#1;n#ul#0;n#div#4;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#2;n#ul#0;n#div#4;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mavon-editor.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mavon-editor.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/mavon-editor.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2613">
-              <caret line="225" column="28" lean-forward="false" selection-start-line="225" selection-start-column="28" selection-end-line="225" selection-end-column="28" />
+            <state relative-caret-position="134">
+              <caret line="595" column="24" lean-forward="true" selection-start-line="595" selection-start-column="24" selection-end-line="595" selection-end-column="24" />
               <folding>
-                <element signature="e#8770#8815#0" expanded="true" />
-                <marker date="1493029645805" expanded="false" signature="19401:19561" ph="{...}" />
-                <marker date="1493029645805" expanded="false" signature="19780:19859" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="extra-function.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/extra-function.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="5" column="3" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-              <folding>
-                <marker date="1493029645718" expanded="true" signature="136:1739" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="1740:1756" ph="/** 滚动条联动 ...*/" />
-                <marker date="1493029645718" expanded="true" signature="1801:2569" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="2120:2283" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="2433:2567" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="2570:2610" ph="/** 监听浏览器fullscreen ...*/" />
-                <marker date="1493029645718" expanded="true" signature="2652:3197" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="2736:2791" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="2867:2922" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="3131:3186" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="3199:3237" ph="/** 监听浏览器onresize ...*/" />
-                <marker date="1493029645718" expanded="true" signature="3305:3523" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="3367:3439" ph="{...}" />
-                <marker date="1493029645718" expanded="true" signature="3445:3517" ph="{...}" />
+                <element signature="e#10132#10177#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,13 +52,32 @@
       <file leaf-file-name="onecolumn-event.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/onecolumn-event.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="154" column="9" lean-forward="false" selection-start-line="154" selection-start-column="9" selection-end-line="154" selection-end-column="9" />
+            <state relative-caret-position="130">
+              <caret line="145" column="10" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <marker date="1493029645723" expanded="true" signature="6168:6171" ph="{...}" />
-                <marker date="1493029645723" expanded="true" signature="6168:6173" ph="{...}" />
+                <marker date="1493108603720" expanded="true" signature="6168:6171" ph="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="extra-function.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/extra-function.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="139" column="5" lean-forward="true" selection-start-line="136" selection-start-column="4" selection-end-line="139" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scroll.styl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/css/scroll.styl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="21">
+              <caret line="1" column="4" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -118,7 +86,19 @@
         <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/keydown-listen.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="84">
-              <caret line="5" column="46" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+              <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+              <folding>
+                <marker date="1493108603716" expanded="true" signature="6026:6033" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/config.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -128,18 +108,23 @@
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="147">
-              <caret line="16" column="29" lean-forward="false" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+              <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="3" column="15" lean-forward="false" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
-              <folding />
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="42">
+                <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+                <folding />
+              </first_editor>
+              <second_editor>
+                <js_state />
+              </second_editor>
             </state>
           </provider>
         </entry>
@@ -148,24 +133,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$toolbar_left_redo_click</find>
-      <find>d_histroy_index</find>
-      <find>this.$refs.vNoteDivEdit.innerHTML</find>
-      <find>d_history_index</find>
-      <find>d_value</find>
-      <find>$toolbar_left_trash_click</find>
-      <find>plugin</find>
-      <find>toolbars</find>
-      <find>mavonEditorOne</find>
-      <find>mavoneditor</find>
-      <find>save</find>
-      <find>mavon</find>
-      <find>fullscreenchange</find>
-      <find>watch_screen_size</find>
-      <find>watch</find>
       <find>s_screen_phone</find>
       <find>s_subField</find>
-      <find>scrollbar</find>
       <find>HELP</find>
       <find>CONFIG</find>
       <find>insertHtmlAtCaret</find>
@@ -178,6 +147,22 @@
       <find>this</find>
       <find>judgeRender</find>
       <find>/static/</find>
+      <find>scrollbar</find>
+      <find>v-note-navigation-close</find>
+      <find>keydownListen</find>
+      <find>insertText</find>
+      <find>tomarkdown</find>
+      <find>vNoteEdit</find>
+      <find>getHflag</find>
+      <find>obj</find>
+      <find>s_navigation</find>
+      <find>vNoteDivEdit</find>
+      <find>v-note-read-model</find>
+      <find>getNavigation</find>
+      <find>s_readmodel</find>
+      <find>$v_markdown_key_listen</find>
+      <find>getNavigation</find>
+      <find>V-IF</find>
     </findStrings>
     <replaceStrings>
       <replace>./static</replace>
@@ -188,8 +173,8 @@
       <replace>d_history_index</replace>
       <replace>CONFIG</replace>
       <replace>$vm</replace>
-      <replace>onecolumnInsert</replace>
       <replace>../</replace>
+      <replace>onecolumnInsert</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\webstrom\workplace\mavon-show\dist</dir>
@@ -221,16 +206,17 @@
         <option value="$PROJECT_DIR$/node_modules/mavon-editor/index.js" />
         <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/core/core-function.js" />
         <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/help.json" />
-        <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/config.json" />
-        <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/core/keydown-listen.js" />
         <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/core/onecolumn-event.js" />
-        <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/core/extra-function.js" />
-        <option value="$PROJECT_DIR$/node_modules/mavon-editor/mavon-editor.vue" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/App.vue" />
         <option value="$PROJECT_DIR$/dist/index.html" />
         <option value="$PROJECT_DIR$/dist/static/css/app.3f62b0709705f1b358450f60a409795b.css" />
+        <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/config.json" />
+        <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/css/scroll.styl" />
+        <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/core/extra-function.js" />
+        <option value="$PROJECT_DIR$/node_modules/mavon-editor/lib/core/keydown-listen.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/App.vue" />
+        <option value="$PROJECT_DIR$/node_modules/mavon-editor/mavon-editor.vue" />
       </list>
     </option>
   </component>
@@ -248,7 +234,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
+    <option name="width" value="1378" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectView">
@@ -338,6 +324,7 @@
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="D:\webstrom\workplace\mavon-show\node_modules\eslint" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+    <property name="editor.config.accepted" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -476,12 +463,13 @@
       <workItem from="1492786192119" duration="1222000" />
       <workItem from="1492925475930" duration="27000" />
       <workItem from="1492949762350" duration="5478000" />
-      <workItem from="1493022672002" duration="6669000" />
+      <workItem from="1493022672002" duration="11688000" />
+      <workItem from="1493089860207" duration="20109000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59994000" />
+    <option name="totallyTimeSpent" value="85122000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -493,19 +481,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1378" height="744" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2590164" sideWeight="0.50298506" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2953869" sideWeight="0.4852459" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37213114" sideWeight="0.49701494" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2947761" sideWeight="0.26595744" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.53770494" sideWeight="0.49701494" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3737705" sideWeight="0.49701494" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2953869" sideWeight="0.5147541" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19836065" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30983606" sideWeight="0.49701494" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2947761" sideWeight="0.7340425" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -515,6 +502,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19836065" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -553,7 +541,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dist/static/css/app.201ffc53dabb03b3828559cf15c22308.css" />
     <entry file="file://$PROJECT_DIR$/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1743">
@@ -570,13 +557,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CNAME">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/CNAME" />
     <entry file="file://$PROJECT_DIR$/dist/static/css/app.256102044fd8d0c35f75ded5e126a0b3.css" />
     <entry file="file://$PROJECT_DIR$/src/assets/help.json">
       <provider selected="true" editor-type-id="text-editor">
@@ -656,13 +637,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dist/static/css/app.538c9f1d91d1cbfc73a28ebb38f5c353.css" />
-    <entry file="file://$PROJECT_DIR$/dist/static/css/app.ca44b174551ce332fa41c1e4b8c77886.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="3" column="46" lean-forward="false" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/static/css/app.ca44b174551ce332fa41c1e4b8c77886.css" />
     <entry file="file://$PROJECT_DIR$/build/build.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -702,7 +677,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-945">
           <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -714,14 +688,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/markdown.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/markdown.js" />
     <entry file="file://$PROJECT_DIR$/build/webpack.base.conf.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -729,29 +696,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/core-function.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/core-function.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/help.json" />
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="13" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="63">
+          <caret line="3" column="15" lean-forward="false" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/help.json">
+    <entry file="file://$PROJECT_DIR$/dist/static/css/app.3f62b0709705f1b358450f60a409795b.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="101">
+          <caret line="2" column="55" lean-forward="false" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/config.json">
+    <entry file="file://$PROJECT_DIR$/dist/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="27" column="3" lean-forward="false" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
-          <folding>
-            <element signature="n#!!block;n#toolbars#0;n#!!top" expanded="false" />
-          </folding>
+        <state relative-caret-position="257">
+          <caret line="13" column="18" lean-forward="false" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -759,6 +723,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="10" column="35" lean-forward="true" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/css/scroll.styl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" column="4" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -766,43 +737,18 @@
     <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/keydown-listen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
-          <caret line="5" column="46" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+          <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+          <folding>
+            <marker date="1493108603716" expanded="true" signature="6026:6033" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/extra-function.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="5" column="3" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding>
-            <marker date="1493029645718" expanded="true" signature="136:1739" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="1740:1756" ph="/** 滚动条联动 ...*/" />
-            <marker date="1493029645718" expanded="true" signature="1801:2569" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="2120:2283" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="2433:2567" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="2570:2610" ph="/** 监听浏览器fullscreen ...*/" />
-            <marker date="1493029645718" expanded="true" signature="2652:3197" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="2736:2791" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="2867:2922" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="3131:3186" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="3199:3237" ph="/** 监听浏览器onresize ...*/" />
-            <marker date="1493029645718" expanded="true" signature="3305:3523" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="3367:3439" ph="{...}" />
-            <marker date="1493029645718" expanded="true" signature="3445:3517" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/onecolumn-event.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="154" column="9" lean-forward="false" selection-start-line="154" selection-start-column="9" selection-end-line="154" selection-end-column="9" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1493029645723" expanded="true" signature="6168:6171" ph="{...}" />
-            <marker date="1493029645723" expanded="true" signature="6168:6173" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -819,30 +765,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/mavon-editor.vue">
+    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2613">
-          <caret line="225" column="28" lean-forward="false" selection-start-line="225" selection-start-column="28" selection-end-line="225" selection-end-column="28" />
-          <folding>
-            <element signature="e#8770#8815#0" expanded="true" />
-            <marker date="1493029645805" expanded="false" signature="19401:19561" ph="{...}" />
-            <marker date="1493029645805" expanded="false" signature="19780:19859" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="16" column="29" lean-forward="false" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+        <state relative-caret-position="462">
+          <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/onecolumn-event.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="15" lean-forward="false" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+        <state relative-caret-position="130">
+          <caret line="145" column="10" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1493108603720" expanded="true" signature="6168:6171" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/lib/core/extra-function.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="139" column="5" lean-forward="true" selection-start-line="136" selection-start-column="4" selection-end-line="139" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -850,25 +795,22 @@
     <entry file="file://$PROJECT_DIR$/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
-          <caret line="42" column="30" lean-forward="false" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="13" column="18" lean-forward="false" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/static/css/app.3f62b0709705f1b358450f60a409795b.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="2" column="55" lean-forward="false" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
+          <caret line="65" column="35" lean-forward="true" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
           <folding>
-            <element signature="e#32742#34983#1" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#ul#0;n#div#4;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#1;n#ul#0;n#div#4;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#2;n#ul#0;n#div#4;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/mavon-editor/mavon-editor.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="595" column="24" lean-forward="true" selection-start-line="595" selection-start-column="24" selection-end-line="595" selection-end-column="24" />
+          <folding>
+            <element signature="e#10132#10177#0" expanded="true" />
           </folding>
         </state>
       </provider>

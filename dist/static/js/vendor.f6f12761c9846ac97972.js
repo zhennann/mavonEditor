@@ -11969,766 +11969,6 @@ module.exports = VueAutoTextarea;
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/**
- * Created by zhy on 2017/4/1.
- */
-
-
-/**
- * mavonEditor
- * @author hinesboy
- */
-
-const mavonEditor = __webpack_require__(47);
-
-const VueMavonEditor = {
-    mavonEditor: mavonEditor,
-    install: function(Vue) {
-        Vue.component('mavon-editor', mavonEditor);
-    },
-};
-
-module.exports = VueMavonEditor;
-
-/***/ }),
-/* 38 */,
-/* 39 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * Created by zhy on 2017/4/24.
- */
-/**
- * textarea 插入内容
- */
-const insertTextAtCaret = (obj, {prefix, subfix, str} , $vm) => {
-    obj.focus()
-    if (document.selection) {
-        alert('document.selection')
-    } else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
-        var startPos = obj.selectionStart;
-        var endPos = obj.selectionEnd;
-        var tmpStr = obj.value;
-        if (startPos === endPos) {
-            // 直接插入
-            obj.value = tmpStr.substring(0, startPos) + prefix + str + subfix + tmpStr.substring(endPos, tmpStr.length);
-            obj.selectionStart = startPos + prefix.length;
-            obj.selectionEnd = startPos + (str.length + prefix.length);
-        } else {
-            // 存在选中区域
-            if (tmpStr.substring(startPos - prefix.length, startPos) === prefix && tmpStr.substring(endPos, endPos + subfix.length) === subfix) {
-                // 取消
-                obj.value = tmpStr.substring(0, startPos - prefix.length) + tmpStr.substring(startPos, endPos) + tmpStr.substring(endPos + subfix.length, tmpStr.length);
-                obj.selectionStart = startPos - prefix.length;
-                obj.selectionEnd = endPos - prefix.length;
-            } else {
-                // 确定
-                obj.value = tmpStr.substring(0, startPos) + prefix + tmpStr.substring(startPos, endPos) + subfix + tmpStr.substring(endPos, tmpStr.length);
-                obj.selectionStart = startPos + prefix.length;
-                obj.selectionEnd = startPos + (endPos - startPos + prefix.length);
-            }
-        }
-    } else {
-        alert('else')
-        // obj.value += str;
-    }
-    // 触发change事件
-    $vm.d_value = obj.value
-    obj.focus()
-}
-/* harmony export (immutable) */ __webpack_exports__["d"] = insertTextAtCaret;
-
-/**
- * 滚动条联动
- */
-const scrollLink = ($event , $vm) => {
-    let element = $event.srcElement ? $event.srcElement : $event.target
-    let ratio = element.scrollTop / (element.scrollHeight - element.offsetHeight)
-    if ($vm.edit_scroll_height >= 0 && element.scrollHeight !== $vm.edit_scroll_height && (element.scrollHeight - element.offsetHeight - element.scrollTop <= 30)) {
-        // star 内容变化 导致 高度增加  且滚动条距离底部小于25px  自动滚动到底部
-        $vm.$refs.vNoteEdit.scrollTop = element.scrollHeight - element.offsetHeight
-        ratio = 1
-    }
-    $vm.edit_scroll_height = element.scrollHeight
-    // end ----
-    if ($vm.$refs.vShowContent.scrollHeight > $vm.$refs.vShowContent.offsetHeight) {
-        $vm.$refs.vShowContent.scrollTop = ($vm.$refs.vShowContent.scrollHeight - $vm.$refs.vShowContent.offsetHeight) * ratio
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["c"] = scrollLink;
-
-/**
- * 监听浏览器fullscreen
- * @param $vm
- */
-const fullscreenchange = ($vm) => {
-    // 阅读模式 全屏监听事件
-    document.addEventListener('fullscreenchange', function (e) {
-        $vm.$toolbar_right_read_change_status()
-    }, false);
-    document.addEventListener('mozfullscreenchange', function (e) {
-        $vm.$toolbar_right_read_change_status()
-    }, false);
-    document.addEventListener('webkitfullscreenchange', function (e) {
-        $vm.$toolbar_right_read_change_status()
-    }, false);
-    document.addEventListener('msfullscreenchange', function (e) {
-        $vm.$toolbar_right_read_change_status()
-    }, false);
-}
-/* harmony export (immutable) */ __webpack_exports__["b"] = fullscreenchange;
-
-
-/**
- * 监听浏览器onresize
- * @param $vm
- */
-const windowResize = ($vm) => {
-    function sizeToStatus() {
-        if (window.matchMedia('(min-width:768px)').matches) {
-            // > 768
-            $vm.s_screen_phone = false;
-        } else {
-            // <  768
-            $vm.s_screen_phone = true;
-        }
-    }
-    sizeToStatus();
-    window.onresize = function () {
-        // 媒介查询
-        sizeToStatus();
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = windowResize;
-
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * Created by zhy on 2017/4/24.
- */
-const keydownListen = (e , $vm) => {
-    // 注册监听键盘事件
-    if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
-        // one key
-        switch (e.keyCode) {
-            case 9: {
-                // tab 单栏模式
-                if (!$vm.s_subField) {
-                    e.preventDefault()
-                    if ($vm.$refs.vNoteDivEdit ) {
-                        let value = markdown.render($vm.d_value)
-                        if (value !== null && value !== '') {
-                            $vm.$refs.vNoteDivEdit.innerHTML = value
-                            let sel = window.getSelection();
-                            let range = sel.getRangeAt(0);
-                            range = range.cloneRange();
-                            range.setStartAfter($vm.$refs.vNoteDivEdit.lastChild)
-                            range.collapse(true);
-                            sel.removeAllRanges();
-                            sel.addRange(range);
-                        }
-                    }
-                }
-                break;
-            }
-            case 120: {
-                // F9 单栏模式
-                e.preventDefault()
-                $vm.$toolbar_right_subfield_click()
-                break;
-            }
-            case 121: {
-                // F10 全屏
-                e.preventDefault()
-                $vm.$toolbar_right_fullscreen_click()
-                break;
-            }
-            case 122: {
-                // F11 阅读
-                e.preventDefault()
-                $vm.$toolbar_right_read_click()
-                break;
-            }
-        }
-    } else if (e.ctrlKey && !e.altKey && !e.shiftKey) {
-        // ctrl +
-        switch (e.keyCode) {
-            case 66: {
-                // B
-                e.preventDefault()
-                $vm.$toolbar_left_bold_click()
-                break;
-            }
-            case 73: {
-                // I
-                e.preventDefault()
-                $vm.$toolbar_left_italic_click()
-                break;
-            }
-            case 72: {
-                // H
-                e.preventDefault()
-                $vm.$toolbar_left_header_click()
-                break;
-            }
-            case 85: {
-                // U
-                e.preventDefault()
-                $vm.$toolbar_left_underline_click()
-                break;
-            }
-            case 68: {
-                // D
-                e.preventDefault()
-                $vm.$toolbar_left_strikethrough_click()
-                break;
-            }
-            case 77: {
-                // M
-                e.preventDefault()
-                $vm.$toolbar_left_mark_click()
-                break;
-            }
-            case 81: {
-                // Q
-                e.preventDefault()
-                $vm.$toolbar_left_quote_click()
-                break;
-            }
-            case 79: {
-                // O
-                e.preventDefault()
-                $vm.$toolbar_left_ol_click()
-                break;
-            }
-            case 76: {
-                // L
-                e.preventDefault()
-                $vm.$toolbar_left_link_click()
-                break;
-            }
-            case 83: {
-                // S
-                e.preventDefault()
-                $vm.$toolbar_left_save_click()
-                break;
-            }
-            case 90: {
-                // Z
-                e.preventDefault()
-                $vm.$toolbar_left_undo_click()
-                break;
-            }
-            case 89: {
-                // Y
-                e.preventDefault()
-                $vm.$toolbar_left_redo_click()
-                break;
-            }
-            case 8: {
-                // delete
-                e.preventDefault()
-                $vm.$toolbar_left_trash_click()
-                break;
-            }
-        }
-    } else if (e.ctrlKey && e.altKey && !e.shiftKey) {
-        // ctrl + alt +
-        switch (e.keyCode) {
-            case 83: {
-                // S
-                e.preventDefault()
-                $vm.$toolbar_left_superscript_click()
-                break;
-            }
-            case 85: {
-                // U
-                e.preventDefault()
-                $vm.$toolbar_left_ul_click()
-                break;
-            }
-            case 76: {
-                // C
-                e.preventDefault()
-                $vm.$toolbar_left_imagelink_click()
-                break;
-            }
-            case 67: {
-                // L
-                e.preventDefault()
-                $vm.$toolbar_left_code_click()
-                break;
-            }
-            case 84: {
-                // T
-                e.preventDefault()
-                $vm.$toolbar_left_table_click()
-                break;
-            }
-        }
-    } else if (e.ctrlKey && e.shiftKey && !e.altKey) {
-        // ctrl + shift
-        switch (e.keyCode) {
-            case 83: {
-                // S
-                e.preventDefault()
-                $vm.$toolbar_left_subscript_click()
-                break;
-            }
-        }
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = keydownListen;
-
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * Created by zhy on 2017/3/30.
- */
-var hljs = __webpack_require__(118);
-// default mode
-var markdown = __webpack_require__(72)({
-  html:         true,        // Enable HTML tags in source
-  xhtmlOut:     true,        // Use '/' to close single tags (<br />).
-  breaks:       true,        // Convert '\n' in paragraphs into <br>
-  langPrefix:   'language-markdown',  // CSS language prefix for fenced blocks. Can be
-  linkify:      false,        // 自动识别url
-  typographer:  true,
-  quotes: '“”‘’',
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return '<pre class="hljs"><code class="' + lang + '">' +
-          hljs.highlight(lang, str, true).value +
-          '</code></pre>';
-      } catch (__) {}
-    }
-
-    return '<pre class="hljs"><code>' + markdown.utils.escapeHtml(str) + '</code></pre>';
-  }
-});
-// 表情
-var emoji = __webpack_require__(30);
-// 下标
-var sub = __webpack_require__(18)
-// 上标
-var sup = __webpack_require__(19)
-// <dl/>
-var deflist = __webpack_require__(54)
-// <abbr/>
-var abbr = __webpack_require__(26)
-// footnote
-var footnote = __webpack_require__(63)
-// insert 带有下划线 样式 ++ ++
-var insert = __webpack_require__(52)
-// mark
-var mark = __webpack_require__(53)
-//
-var container = __webpack_require__(51)
-markdown.use(emoji)
-  .use(sup)
-  .use(sub)
-  .use(deflist)
-  .use(abbr)
-  .use(footnote)
-  .use(insert)
-  .use(mark)
-  .use(container)
-
-/* harmony default export */ __webpack_exports__["a"] = (markdown);
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * Created by zhy on 2017/4/24.
- */
-/**
- * keydown enter
- */
-const onecolumnKeyDownEnter = ($event , $vm , tomarkdown) => {
-    let element = $event.srcElement ? $event.srcElement : $event.target
-    let sel = window.getSelection();
-    let range = sel.getRangeAt(0);
-    // code中回车处理
-    if (range.startContainer.tagName === 'CODE' || range.startContainer.tagName === 'PRE') {
-        $event.preventDefault()
-        onecolumnInsert(range.startContainer , '\n')
-    } else if (range.startContainer.parentElement.tagName === 'CODE' || range.startContainer.parentElement.tagName === 'PRE') {
-        $event.preventDefault()
-        onecolumnInsert(range.startContainer.parentElement , '\n')
-    } else if (!blockQuoteDoubleEnter(range.startContainer , $event , range.startContainer)) {
-        $vm.s_table_enter = false
-        judgeRender(range.startContainer , $event , range.startContainer , range.startContainer , $vm)
-        /* if (result) {
-         range = range.cloneRange();
-         // code的渲染
-         if (result.children !== null && result.children.length > 0 && result.children[0].tagName === 'PRE') {
-         result.children[0].children[0].innerHTML = '\n'
-         result.innerHTML += '<div><br/></div>'
-         range.setStartAfter(result.children[0].children[0]);
-         } else if (result.lastChild) {
-         range.setStartAfter(result.lastChild);
-         } else {
-         range.setStartAfter(result);
-         }
-         range.collapse(true);
-         sel.removeAllRanges();
-         sel.addRange(range);
-         } */
-    }
-    $vm.d_value = tomarkdown(element.innerHTML)
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = onecolumnKeyDownEnter;
-
-/**
- * insert
- */
-const onecolumnInsert = (dom , html) => {
-    dom.focus()
-    var sel
-    var range
-    if (window.getSelection) {
-        // IE9 and non-IE
-        sel = window.getSelection();
-        if (sel.getRangeAt && sel.rangeCount) {
-            range = sel.getRangeAt(0);
-            range.deleteContents();
-            // Range.createContextualFragment() would be useful here but is
-            // non-standard and not supported in all browsers (IE9, for one)
-            var el = document.createElement('div');
-            el.innerHTML = html;
-            var frag = document.createDocumentFragment()
-            var node
-            var lastNode
-            while ((node = el.firstChild)) {
-                lastNode = frag.appendChild(node);
-            }
-            range.insertNode(frag);
-            // Preserve the selection
-            if (lastNode) {
-                range = range.cloneRange();
-                range.setStartAfter(lastNode);
-                range.collapse(true);
-                sel.removeAllRanges();
-                sel.addRange(range);
-            }
-        }
-    } else if (document.selection && document.selection.type !== 'Control') {
-        // IE < 9
-        document.selection.createRange().pasteHTML(html);
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["b"] = onecolumnInsert;
-
-/**
- * 连续两次在段落中换行 跳出段落
- */
-const blockQuoteDoubleEnter = (dom , $event , self) => {
-    if (dom.tagName) {
-        if (dom.getAttribute('class') === 'content-div content-div-edit') {
-            return false
-        } else if (dom.tagName === 'BLOCKQUOTE') {
-            if (!self.innerText || self.innerText === '\n' || self.innerText === '') {
-                $event.preventDefault()
-                let sel = window.getSelection();
-                let range = sel.getRangeAt(0);
-                let next = dom.nextSibling
-                self.outerHTML = ''
-                dom.outerHTML += '<div><br/></div>'
-                range = range.cloneRange()
-                range.setStartAfter(next.previousSibling.lastChild);
-                range.collapse(true);
-                sel.removeAllRanges();
-                sel.addRange(range);
-            }
-            return true
-        }
-        return blockQuoteDoubleEnter(dom.parentElement, $event , dom)
-    } else {
-        return blockQuoteDoubleEnter(dom.parentElement, $event , dom)
-    }
-}
-/* unused harmony export blockQuoteDoubleEnter */
-
-/**
- * 在表格中回车特殊处理(暂时只做表格回车 , 后续可能拓展)
- */
-const judgeRender = (dom , $event , self , pre , $vm) => {
-    if (dom.tagName) {
-        if (dom.tagName === 'TABLE') {
-            $vm.s_table_enter = true
-            self = dom
-        }
-        if (dom.getAttribute('class') === 'content-div content-div-edit') {
-            // 在表格中回车 在表格后换行
-            if ($vm.s_table_enter) {
-                let sel = window.getSelection();
-                let range = sel.getRangeAt(0);
-                range = range.cloneRange()
-                $event.preventDefault()
-                let next = self.nextSibling
-                self.outerHTML += '<div><br/></div>'
-                range.setStartAfter(next.previousSibling.lastChild);
-                range.collapse(true);
-                sel.removeAllRanges();
-                sel.addRange(range);
-            }
-            return ;
-        }
-        judgeRender(dom.parentElement , $event , self , dom , $vm)
-        /* let obj = document.createElement('div')
-         obj.innerHTML = markdown.render(dom.innerHTML.replace('&gt;' , '>'))
-         var objText = obj.innerText
-         var domText = dom.innerText
-         var objTextNoSpaceEnter = objText.replace(/\s+/g, '').replace(/[\r\n]/g, '')
-         var domTextNoSpaceEnter = domText.replace(/\s+/g, '').replace(/[\r\n]/g, '')
-         if (obj.children.length > 0) {
-         if (obj.children[0].innerText.replace(/\s+/g, '').replace(/[\r\n]/g, '') === domTextNoSpaceEnter || obj.children[0].innerText === domText || objText === domText || domTextNoSpaceEnter === objTextNoSpaceEnter) {
-         return judgeRender(dom.parentElement , $event , self ,dom , $vm)
-         } else {
-         // 有变化
-         $event.preventDefault()
-         dom.innerHTML = markdown.render(tomarkdown(dom.innerHTML))
-         return dom
-         }
-         } else {
-         if (objText === domText || objTextNoSpaceEnter === domTextNoSpaceEnter) {
-         return judgeRender(dom.parentElement , $event , self , dom , $vm)
-         } else {
-         // 有变化
-         dom.innerHTML = markdown.render(tomarkdown(obj.innerHTML))
-         return dom
-         }
-         } */
-    } else {
-        judgeRender(dom.parentElement , $event , self , dom , $vm)
-    }
-}
-/* unused harmony export judgeRender */
-
-
-
-/***/ }),
-/* 43 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * Created by zhy on 2017/4/9.
- */
-var toMarkdown = __webpack_require__(64);
-//
-const coverterP = {
-  filter: 'P',
-  replacement: function (content) {
-    return '\n' + content
-  }
-}
-const coverterp = {
-  filter: 'p',
-  replacement: function (content) {
-    return '\n' + content
-  }
-}
-const coverterDiv = {
-  filter: 'DIV',
-  replacement: function (content) {
-    return '\n' + content
-  }
-}
-const coverterdiv = {
-  filter: 'div',
-  replacement: function (content) {
-    return '\n' + content
-  }
-}
-// 解析代码块
-const coverterCode = {
-  filter: 'pre',
-  replacement: function (content) {
-    let objE = document.createElement('div');
-    objE.innerHTML = content;
-    let codes = objE.getElementsByTagName('code')
-    if (codes !== null && codes.length > 0) {
-      let code = codes[0]
-      let codeType = code.getAttribute('class') === null ? '' : code.getAttribute('class')
-      let codeContent = code.innerText
-      return '\n```' + codeType + '\n' + codeContent + '\n```\n';
-    }
-    return '\n```\n' + content + '\n```\n';
-  }
-}
-// 解析表格
-const coverterTable = {
-  filter: 'table',
-  replacement: function (content) {
-    let table = document.createElement('table');
-    table.innerHTML = content;
-    let dom = '\n';
-    let tableMark = '';
-    let thead = table.getElementsByTagName('thead')[0];
-    let thead_tr = thead.getElementsByTagName('tr')[0];
-    let thead_th = thead_tr.getElementsByTagName('th')
-    for (let i = 0; i < thead_th.length; i++) {
-      dom += '| ' + thead_th[i].innerText + ' '
-      let text_align = thead_th[i].style.textAlign
-      if (text_align === 'left') {
-        tableMark += '| :- '
-      } else if (text_align === 'center') {
-        tableMark += '| :-: '
-      } else if (text_align === 'right') {
-        tableMark += '| -: '
-      } else {
-        tableMark += '| - '
-      }
-      if (i === thead_th.length - 1) {
-        dom += '|\n' + tableMark + ' |\n'
-      }
-    }
-    let tbody
-    if (table.getElementsByTagName('tbody')) {
-      tbody = table.getElementsByTagName('tbody')[0];
-      let tbody_tr = tbody.getElementsByTagName('tr')
-      if (tbody_tr.length > 0) {
-        for (let i = 0; i < tbody_tr.length; i++) {
-          let tbody_td = tbody_tr[i].getElementsByTagName('td')
-          for (let j = 0; j < tbody_td.length; j++) {
-            dom += '| ' + tbody_td[j].innerText + ' ';
-            if (j === tbody_td.length - 1) {
-              dom += '|\n';
-            }
-          }
-        }
-      }
-    }
-    return dom
-  }
-}
-// 上角标
-const coverterSup = {
-  filter: 'sup',
-  replacement: function (content) {
-    return '^' + content + '^';
-  }
-}
-// 下角标
-const coverterSub = {
-  filter: 'sub',
-  replacement: function (content) {
-    return '~' + content + '~';
-  }
-}
-// 下划线
-const coverterUnderline = {
-  filter: 'ins',
-  replacement: function (content) {
-    return '++' + content + '++';
-  }
-}
-// 中画线
-const coverterStrikethrough = {
-  filter: 's',
-  replacement: function (content) {
-    return '~~' + content + '~~';
-  }
-}
-// 标记
-const coverterMark = {
-  filter: 'mark',
-  replacement: function (content) {
-    return '==' + content + '==';
-  }
-}
-var tomarkdown = function (str) {
-  return toMarkdown(str, {
-    converters: [
-      coverterCode,
-      coverterTable,
-      coverterSup,
-      coverterSub,
-      coverterUnderline,
-      coverterStrikethrough,
-      coverterMark,
-      coverterP,
-      coverterp,
-      coverterDiv,
-      coverterdiv
-    ]
-  });
-}
-/* harmony default export */ __webpack_exports__["a"] = (tomarkdown);
-
-
-/***/ }),
-/* 44 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export p_ObjectCopy_DEEP */
-/* unused harmony export p_urlParse */
-/**
- * Created by zhy on 2016/12/25.
- */
-/**
- * 深度拷贝对象
- * @param target
- * @param arg
- * @returns {*}
- * @constructor
- */
-function p_ObjectCopy_DEEP(target, arg) {
-  for (let arg_item in arg) {
-    let type = typeof arg[arg_item];
-    if (!target[arg_item] || (type !== 'Object' && type !== 'object')) {
-      target[arg_item] = arg[arg_item];
-      continue;
-    } else {
-      target[arg_item] = p_ObjectCopy_DEEP(target[arg_item], arg[arg_item]);
-    }
-  }
-  return target;
-};
-/**
- * 解析url参数
- */
-function p_urlParse() {
-  let url = window.location.search;
-  let obj = {};
-  let reg = /[?&][^?&]+=[^?&]+/g;
-  let arr = url.match(reg);
-  if (arr) {
-    arr.forEach((item) => {
-      let tempArr = item.substring(1).split('=');
-      let key = decodeURIComponent(tempArr[0]);
-      let val = decodeURIComponent(tempArr[1]);
-      obj[key] = val;
-    })
-  }
-  return obj;
-};
-
-
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
 
@@ -13263,6 +12503,819 @@ function p_urlParse() {
 }(this));
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(62)(module), __webpack_require__(9)))
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Created by zhy on 2017/4/1.
+ */
+
+
+/**
+ * mavonEditor
+ * @author hinesboy
+ */
+
+const mavonEditor = __webpack_require__(47);
+
+const VueMavonEditor = {
+    mavonEditor: mavonEditor,
+    install: function(Vue) {
+        Vue.component('mavon-editor', mavonEditor);
+    },
+};
+
+module.exports = VueMavonEditor;
+
+/***/ }),
+/* 39 */,
+/* 40 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * Created by zhy on 2017/4/24.
+ */
+/**
+ * textarea 插入内容
+ */
+const insertTextAtCaret = (obj, {prefix, subfix, str}, $vm) => {
+    obj.focus()
+    if (document.selection) {
+        alert('document.selection')
+    } else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+        var startPos = obj.selectionStart;
+        var endPos = obj.selectionEnd;
+        var tmpStr = obj.value;
+        if (startPos === endPos) {
+            // 直接插入
+            obj.value = tmpStr.substring(0, startPos) + prefix + str + subfix + tmpStr.substring(endPos, tmpStr.length);
+            obj.selectionStart = startPos + prefix.length;
+            obj.selectionEnd = startPos + (str.length + prefix.length);
+        } else {
+            // 存在选中区域
+            if (tmpStr.substring(startPos - prefix.length, startPos) === prefix && tmpStr.substring(endPos, endPos + subfix.length) === subfix) {
+                // 取消
+                obj.value = tmpStr.substring(0, startPos - prefix.length) + tmpStr.substring(startPos, endPos) + tmpStr.substring(endPos + subfix.length, tmpStr.length);
+                obj.selectionStart = startPos - prefix.length;
+                obj.selectionEnd = endPos - prefix.length;
+            } else {
+                // 确定
+                obj.value = tmpStr.substring(0, startPos) + prefix + tmpStr.substring(startPos, endPos) + subfix + tmpStr.substring(endPos, tmpStr.length);
+                obj.selectionStart = startPos + prefix.length;
+                obj.selectionEnd = startPos + (endPos - startPos + prefix.length);
+            }
+        }
+    } else {
+        alert('else')
+        // obj.value += str;
+    }
+    // 触发change事件
+    $vm.d_value = obj.value
+    obj.focus()
+}
+/* harmony export (immutable) */ __webpack_exports__["e"] = insertTextAtCaret;
+
+/**
+ * 生成导航目录
+ */
+const getNavigation = ($vm , full) => {
+    let navigationContent;
+    if (full) {
+        navigationContent = $vm.$refs.navigationContentFull
+    } else {
+        navigationContent = $vm.$refs.navigationContent
+    }
+    navigationContent.innerHTML = $vm.d_render
+    let nodes = navigationContent.children
+    if (nodes.length) {
+        for (let i = 0; i < nodes.length; i++) {
+            judageH(nodes[i] , i , nodes)
+        }
+    }
+    function judageH(node , i , nodes) {
+        let reg = /^H[1-6]{1}$/;
+        if (!reg.exec(node.tagName)) {
+            node.style.display = 'none'
+        } else {
+            let hx = parseInt(node.tagName.substring(1,2));
+            node.onclick = function () {
+                if (full) {
+                    let vReadModel = $vm.$refs.vReadModel;
+                    vReadModel.scrollTop = vReadModel.children[0].children[i].offsetTop
+                } else {
+                    let vShowContent = $vm.$refs.vShowContent;
+                    let vNoteEdit = $vm.$refs.vNoteEdit;
+                    if (!$vm.s_subField && !$vm.s_screen_phone) {
+                        let vNoteDivEdit = $vm.$refs.vNoteDivEdit
+                        vNoteEdit.scrollTop = vNoteDivEdit.children[i].offsetTop
+                    } else {
+                        vNoteEdit.scrollTop = vShowContent.children[i].offsetTop * (vNoteEdit.scrollHeight - vNoteEdit.offsetHeight) / (vShowContent.scrollHeight - vShowContent.offsetHeight)
+                    }
+                }
+            }
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["c"] = getNavigation;
+
+
+/**
+ * 滚动条联动
+ */
+const scrollLink = ($event, $vm) => {
+    let element = $event.srcElement ? $event.srcElement : $event.target
+    let ratio = element.scrollTop / (element.scrollHeight - element.offsetHeight)
+    if ($vm.edit_scroll_height >= 0 && element.scrollHeight !== $vm.edit_scroll_height && (element.scrollHeight - element.offsetHeight - element.scrollTop <= 30)) {
+        // star 内容变化 导致 高度增加  且滚动条距离底部小于25px  自动滚动到底部
+        $vm.$refs.vNoteEdit.scrollTop = element.scrollHeight - element.offsetHeight
+        ratio = 1
+    }
+    $vm.edit_scroll_height = element.scrollHeight
+    // end ----
+    if ($vm.$refs.vShowContent.scrollHeight > $vm.$refs.vShowContent.offsetHeight) {
+        $vm.$refs.vShowContent.scrollTop = ($vm.$refs.vShowContent.scrollHeight - $vm.$refs.vShowContent.offsetHeight) * ratio
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["d"] = scrollLink;
+
+/**
+ * 监听浏览器fullscreen
+ * @param $vm
+ */
+const fullscreenchange = ($vm) => {
+    // 阅读模式 全屏监听事件
+    document.addEventListener('fullscreenchange', function (e) {
+        $vm.$toolbar_right_read_change_status()
+    }, false);
+    document.addEventListener('mozfullscreenchange', function (e) {
+        $vm.$toolbar_right_read_change_status()
+    }, false);
+    document.addEventListener('webkitfullscreenchange', function (e) {
+        $vm.$toolbar_right_read_change_status()
+    }, false);
+    document.addEventListener('msfullscreenchange', function (e) {
+        $vm.$toolbar_right_read_change_status()
+    }, false);
+}
+/* harmony export (immutable) */ __webpack_exports__["b"] = fullscreenchange;
+
+
+/**
+ * 监听浏览器onresize
+ * @param $vm
+ */
+const windowResize = ($vm) => {
+    function sizeToStatus() {
+        if (window.matchMedia('(min-width:768px)').matches) {
+            // > 768
+            $vm.s_screen_phone = false;
+        } else {
+            // <  768
+            $vm.s_screen_phone = true;
+        }
+    }
+
+    sizeToStatus();
+    window.onresize = function () {
+        // 媒介查询
+        sizeToStatus();
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = windowResize;
+
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * Created by zhy on 2017/4/24.
+ */
+const keydownListen = ($vm , markdown) => {
+    document.onkeydown = function (e) {
+        // 注册监听键盘事件
+        if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
+            // one key
+            switch (e.keyCode) {
+                case 9: {
+                    // tab 单栏模式
+                    if (!$vm.s_subField) {
+                        e.preventDefault()
+                        if ($vm.$refs.vNoteDivEdit ) {
+                            let value = markdown.render($vm.d_value)
+                            if (value !== null && value !== '') {
+                                $vm.$refs.vNoteDivEdit.innerHTML = value
+                                let sel = window.getSelection();
+                                let range = sel.getRangeAt(0);
+                                range = range.cloneRange();
+                                range.setStartAfter($vm.$refs.vNoteDivEdit.lastChild)
+                                range.collapse(true);
+                                sel.removeAllRanges();
+                                sel.addRange(range);
+                            }
+                        }
+                    }
+                    break;
+                }
+                case 120: {
+                    // F9 单栏模式
+                    e.preventDefault()
+                    $vm.$toolbar_right_subfield_click()
+                    break;
+                }
+                case 121: {
+                    // F10 全屏
+                    e.preventDefault()
+                    $vm.$toolbar_right_fullscreen_click()
+                    break;
+                }
+                case 122: {
+                    // F11 阅读
+                    e.preventDefault()
+                    $vm.$toolbar_right_read_click()
+                    break;
+                }
+                case 119: {
+                    // F12 标题导航
+                    e.preventDefault()
+                    $vm.$toolbar_right_navigation_click()
+                    break;
+                }
+            }
+        } else if (e.ctrlKey && !e.altKey && !e.shiftKey) {
+            // ctrl +
+            switch (e.keyCode) {
+                case 66: {
+                    // B
+                    e.preventDefault()
+                    $vm.$toolbar_left_bold_click()
+                    break;
+                }
+                case 73: {
+                    // I
+                    e.preventDefault()
+                    $vm.$toolbar_left_italic_click()
+                    break;
+                }
+                case 72: {
+                    // H
+                    e.preventDefault()
+                    $vm.$toolbar_left_header_click()
+                    break;
+                }
+                case 85: {
+                    // U
+                    e.preventDefault()
+                    $vm.$toolbar_left_underline_click()
+                    break;
+                }
+                case 68: {
+                    // D
+                    e.preventDefault()
+                    $vm.$toolbar_left_strikethrough_click()
+                    break;
+                }
+                case 77: {
+                    // M
+                    e.preventDefault()
+                    $vm.$toolbar_left_mark_click()
+                    break;
+                }
+                case 81: {
+                    // Q
+                    e.preventDefault()
+                    $vm.$toolbar_left_quote_click()
+                    break;
+                }
+                case 79: {
+                    // O
+                    e.preventDefault()
+                    $vm.$toolbar_left_ol_click()
+                    break;
+                }
+                case 76: {
+                    // L
+                    e.preventDefault()
+                    $vm.$toolbar_left_link_click()
+                    break;
+                }
+                case 83: {
+                    // S
+                    e.preventDefault()
+                    $vm.$toolbar_left_save_click()
+                    break;
+                }
+                case 90: {
+                    // Z
+                    e.preventDefault()
+                    $vm.$toolbar_left_undo_click()
+                    break;
+                }
+                case 89: {
+                    // Y
+                    e.preventDefault()
+                    $vm.$toolbar_left_redo_click()
+                    break;
+                }
+                case 8: {
+                    // delete
+                    e.preventDefault()
+                    $vm.$toolbar_left_trash_click()
+                    break;
+                }
+            }
+        } else if (e.ctrlKey && e.altKey && !e.shiftKey) {
+            // ctrl + alt +
+            switch (e.keyCode) {
+                case 83: {
+                    // S
+                    e.preventDefault()
+                    $vm.$toolbar_left_superscript_click()
+                    break;
+                }
+                case 85: {
+                    // U
+                    e.preventDefault()
+                    $vm.$toolbar_left_ul_click()
+                    break;
+                }
+                case 76: {
+                    // C
+                    e.preventDefault()
+                    $vm.$toolbar_left_imagelink_click()
+                    break;
+                }
+                case 67: {
+                    // L
+                    e.preventDefault()
+                    $vm.$toolbar_left_code_click()
+                    break;
+                }
+                case 84: {
+                    // T
+                    e.preventDefault()
+                    $vm.$toolbar_left_table_click()
+                    break;
+                }
+            }
+        } else if (e.ctrlKey && e.shiftKey && !e.altKey) {
+            // ctrl + shift
+            switch (e.keyCode) {
+                case 83: {
+                    // S
+                    e.preventDefault()
+                    $vm.$toolbar_left_subscript_click()
+                    break;
+                }
+            }
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = keydownListen;
+
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * Created by zhy on 2017/3/30.
+ */
+var hljs = __webpack_require__(118);
+// default mode
+var markdown = __webpack_require__(72)({
+  html:         true,        // Enable HTML tags in source
+  xhtmlOut:     true,        // Use '/' to close single tags (<br />).
+  breaks:       true,        // Convert '\n' in paragraphs into <br>
+  langPrefix:   'language-markdown',  // CSS language prefix for fenced blocks. Can be
+  linkify:      false,        // 自动识别url
+  typographer:  true,
+  quotes: '“”‘’',
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return '<pre class="hljs"><code class="' + lang + '">' +
+          hljs.highlight(lang, str, true).value +
+          '</code></pre>';
+      } catch (__) {}
+    }
+
+    return '<pre class="hljs"><code>' + markdown.utils.escapeHtml(str) + '</code></pre>';
+  }
+});
+// 表情
+var emoji = __webpack_require__(30);
+// 下标
+var sub = __webpack_require__(18)
+// 上标
+var sup = __webpack_require__(19)
+// <dl/>
+var deflist = __webpack_require__(54)
+// <abbr/>
+var abbr = __webpack_require__(26)
+// footnote
+var footnote = __webpack_require__(63)
+// insert 带有下划线 样式 ++ ++
+var insert = __webpack_require__(52)
+// mark
+var mark = __webpack_require__(53)
+//
+var container = __webpack_require__(51)
+markdown.use(emoji)
+  .use(sup)
+  .use(sub)
+  .use(deflist)
+  .use(abbr)
+  .use(footnote)
+  .use(insert)
+  .use(mark)
+  .use(container)
+
+/* harmony default export */ __webpack_exports__["a"] = (markdown);
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * Created by zhy on 2017/4/24.
+ */
+/**
+ * keydown enter
+ */
+const onecolumnKeyDownEnter = ($event , $vm , tomarkdown) => {
+    let element = $event.srcElement ? $event.srcElement : $event.target
+    let sel = window.getSelection();
+    let range = sel.getRangeAt(0);
+    // code中回车处理
+    if (range.startContainer.tagName === 'CODE' || range.startContainer.tagName === 'PRE') {
+        $event.preventDefault()
+        onecolumnInsert(range.startContainer , '\n')
+    } else if (range.startContainer.parentElement.tagName === 'CODE' || range.startContainer.parentElement.tagName === 'PRE') {
+        $event.preventDefault()
+        onecolumnInsert(range.startContainer.parentElement , '\n')
+    } else if (!blockQuoteDoubleEnter(range.startContainer , $event , range.startContainer)) {
+        $vm.s_table_enter = false
+        judgeRender(range.startContainer , $event , range.startContainer , range.startContainer , $vm)
+        /* if (result) {
+         range = range.cloneRange();
+         // code的渲染
+         if (result.children !== null && result.children.length > 0 && result.children[0].tagName === 'PRE') {
+         result.children[0].children[0].innerHTML = '\n'
+         result.innerHTML += '<div><br/></div>'
+         range.setStartAfter(result.children[0].children[0]);
+         } else if (result.lastChild) {
+         range.setStartAfter(result.lastChild);
+         } else {
+         range.setStartAfter(result);
+         }
+         range.collapse(true);
+         sel.removeAllRanges();
+         sel.addRange(range);
+         } */
+    }
+    $vm.d_value = tomarkdown(element.innerHTML)
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = onecolumnKeyDownEnter;
+
+/**
+ * insert
+ */
+const onecolumnInsert = (dom , html) => {
+    dom.focus()
+    var sel
+    var range
+    if (window.getSelection) {
+        // IE9 and non-IE
+        sel = window.getSelection();
+        if (sel.getRangeAt && sel.rangeCount) {
+            range = sel.getRangeAt(0);
+            range.deleteContents();
+            // Range.createContextualFragment() would be useful here but is
+            // non-standard and not supported in all browsers (IE9, for one)
+            var el = document.createElement('div');
+            el.innerHTML = html;
+            var frag = document.createDocumentFragment()
+            var node
+            var lastNode
+            while ((node = el.firstChild)) {
+                lastNode = frag.appendChild(node);
+            }
+            range.insertNode(frag);
+            // Preserve the selection
+            if (lastNode) {
+                range = range.cloneRange();
+                range.setStartAfter(lastNode);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+        }
+    } else if (document.selection && document.selection.type !== 'Control') {
+        // IE < 9
+        document.selection.createRange().pasteHTML(html);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["b"] = onecolumnInsert;
+
+/**
+ * 连续两次在段落中换行 跳出段落
+ */
+const blockQuoteDoubleEnter = (dom , $event , self) => {
+    if (dom.tagName) {
+        if (dom.getAttribute('class') === 'content-div content-div-edit') {
+            return false
+        } else if (dom.tagName === 'BLOCKQUOTE') {
+            if (!self.innerText || self.innerText === '\n' || self.innerText === '') {
+                $event.preventDefault()
+                let sel = window.getSelection();
+                let range = sel.getRangeAt(0);
+                let next = dom.nextSibling
+                self.outerHTML = ''
+                dom.outerHTML += '<div><br/></div>'
+                range = range.cloneRange()
+                range.setStartAfter(next.previousSibling.lastChild);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+            return true
+        }
+        return blockQuoteDoubleEnter(dom.parentElement, $event , dom)
+    } else {
+        return blockQuoteDoubleEnter(dom.parentElement, $event , dom)
+    }
+}
+/* unused harmony export blockQuoteDoubleEnter */
+
+/**
+ * 在表格中回车特殊处理(暂时只做表格回车 , 后续可能拓展)
+ */
+const judgeRender = (dom , $event , self , pre , $vm) => {
+    if (dom.tagName) {
+        if (dom.tagName === 'TABLE') {
+            $vm.s_table_enter = true
+            self = dom
+        }
+        if (dom.getAttribute('class') === 'content-div content-div-edit') {
+            // 在表格中回车 在表格后换行
+            if ($vm.s_table_enter) {
+                let sel = window.getSelection();
+                let range = sel.getRangeAt(0);
+                range = range.cloneRange()
+                $event.preventDefault()
+                let next = self.nextSibling
+                self.outerHTML += '<div><br/></div>'
+                range.setStartAfter(next.previousSibling.lastChild);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+            return ;
+        }
+        judgeRender(dom.parentElement , $event , self , dom , $vm)
+        /* let obj = document.createElement('div')
+         obj.innerHTML = markdown.render(dom.innerHTML.replace('&gt;' , '>'))
+         var objText = obj.innerText
+         var domText = dom.innerText
+         var objTextNoSpaceEnter = objText.replace(/\s+/g, '').replace(/[\r\n]/g, '')
+         var domTextNoSpaceEnter = domText.replace(/\s+/g, '').replace(/[\r\n]/g, '')
+         if (obj.children.length > 0) {
+         if (obj.children[0].innerText.replace(/\s+/g, '').replace(/[\r\n]/g, '') === domTextNoSpaceEnter || obj.children[0].innerText === domText || objText === domText || domTextNoSpaceEnter === objTextNoSpaceEnter) {
+         return judgeRender(dom.parentElement , $event , self ,dom , $vm)
+         } else {
+         // 有变化
+         $event.preventDefault()
+         dom.innerHTML = markdown.render(tomarkdown(dom.innerHTML))
+         return dom
+         }
+         } else {
+         if (objText === domText || objTextNoSpaceEnter === domTextNoSpaceEnter) {
+         return judgeRender(dom.parentElement , $event , self , dom , $vm)
+         } else {
+         // 有变化
+         dom.innerHTML = markdown.render(tomarkdown(obj.innerHTML))
+         return dom
+         }
+         } */
+    } else {
+        judgeRender(dom.parentElement , $event , self , dom , $vm)
+    }
+}
+/* unused harmony export judgeRender */
+
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * Created by zhy on 2017/4/9.
+ */
+var toMarkdown = __webpack_require__(64);
+//
+const coverterP = {
+  filter: 'P',
+  replacement: function (content) {
+    return '\n' + content
+  }
+}
+const coverterp = {
+  filter: 'p',
+  replacement: function (content) {
+    return '\n' + content
+  }
+}
+const coverterDiv = {
+  filter: 'DIV',
+  replacement: function (content) {
+    return '\n' + content
+  }
+}
+const coverterdiv = {
+  filter: 'div',
+  replacement: function (content) {
+    return '\n' + content
+  }
+}
+// 解析代码块
+const coverterCode = {
+  filter: 'pre',
+  replacement: function (content) {
+    let objE = document.createElement('div');
+    objE.innerHTML = content;
+    let codes = objE.getElementsByTagName('code')
+    if (codes !== null && codes.length > 0) {
+      let code = codes[0]
+      let codeType = code.getAttribute('class') === null ? '' : code.getAttribute('class')
+      let codeContent = code.innerText
+      return '\n```' + codeType + '\n' + codeContent + '\n```\n';
+    }
+    return '\n```\n' + content + '\n```\n';
+  }
+}
+// 解析表格
+const coverterTable = {
+  filter: 'table',
+  replacement: function (content) {
+    let table = document.createElement('table');
+    table.innerHTML = content;
+    let dom = '\n';
+    let tableMark = '';
+    let thead = table.getElementsByTagName('thead')[0];
+    let thead_tr = thead.getElementsByTagName('tr')[0];
+    let thead_th = thead_tr.getElementsByTagName('th')
+    for (let i = 0; i < thead_th.length; i++) {
+      dom += '| ' + thead_th[i].innerText + ' '
+      let text_align = thead_th[i].style.textAlign
+      if (text_align === 'left') {
+        tableMark += '| :- '
+      } else if (text_align === 'center') {
+        tableMark += '| :-: '
+      } else if (text_align === 'right') {
+        tableMark += '| -: '
+      } else {
+        tableMark += '| - '
+      }
+      if (i === thead_th.length - 1) {
+        dom += '|\n' + tableMark + ' |\n'
+      }
+    }
+    let tbody
+    if (table.getElementsByTagName('tbody')) {
+      tbody = table.getElementsByTagName('tbody')[0];
+      let tbody_tr = tbody.getElementsByTagName('tr')
+      if (tbody_tr.length > 0) {
+        for (let i = 0; i < tbody_tr.length; i++) {
+          let tbody_td = tbody_tr[i].getElementsByTagName('td')
+          for (let j = 0; j < tbody_td.length; j++) {
+            dom += '| ' + tbody_td[j].innerText + ' ';
+            if (j === tbody_td.length - 1) {
+              dom += '|\n';
+            }
+          }
+        }
+      }
+    }
+    return dom
+  }
+}
+// 上角标
+const coverterSup = {
+  filter: 'sup',
+  replacement: function (content) {
+    return '^' + content + '^';
+  }
+}
+// 下角标
+const coverterSub = {
+  filter: 'sub',
+  replacement: function (content) {
+    return '~' + content + '~';
+  }
+}
+// 下划线
+const coverterUnderline = {
+  filter: 'ins',
+  replacement: function (content) {
+    return '++' + content + '++';
+  }
+}
+// 中画线
+const coverterStrikethrough = {
+  filter: 's',
+  replacement: function (content) {
+    return '~~' + content + '~~';
+  }
+}
+// 标记
+const coverterMark = {
+  filter: 'mark',
+  replacement: function (content) {
+    return '==' + content + '==';
+  }
+}
+var tomarkdown = function (str) {
+  return toMarkdown(str, {
+    converters: [
+      coverterCode,
+      coverterTable,
+      coverterSup,
+      coverterSub,
+      coverterUnderline,
+      coverterStrikethrough,
+      coverterMark,
+      coverterP,
+      coverterp,
+      coverterDiv,
+      coverterdiv
+    ]
+  });
+}
+/* harmony default export */ __webpack_exports__["a"] = (tomarkdown);
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export p_ObjectCopy_DEEP */
+/* unused harmony export p_urlParse */
+/**
+ * Created by zhy on 2016/12/25.
+ */
+/**
+ * 深度拷贝对象
+ * @param target
+ * @param arg
+ * @returns {*}
+ * @constructor
+ */
+function p_ObjectCopy_DEEP(target, arg) {
+  for (let arg_item in arg) {
+    let type = typeof arg[arg_item];
+    if (!target[arg_item] || (type !== 'Object' && type !== 'object')) {
+      target[arg_item] = arg[arg_item];
+      continue;
+    } else {
+      target[arg_item] = p_ObjectCopy_DEEP(target[arg_item], arg[arg_item]);
+    }
+  }
+  return target;
+};
+/**
+ * 解析url参数
+ */
+function p_urlParse() {
+  let url = window.location.search;
+  let obj = {};
+  let reg = /[?&][^?&]+=[^?&]+/g;
+  let arr = url.match(reg);
+  if (arr) {
+    arr.forEach((item) => {
+      let tempArr = item.substring(1).split('=');
+      let key = decodeURIComponent(tempArr[0]);
+      let val = decodeURIComponent(tempArr[1]);
+      obj[key] = val;
+    })
+  }
+  return obj;
+};
+
+
 
 /***/ }),
 /* 46 */,
@@ -16123,7 +16176,7 @@ var ParserBlock  = __webpack_require__(79);
 var ParserInline = __webpack_require__(81);
 var LinkifyIt    = __webpack_require__(56);
 var mdurl        = __webpack_require__(5);
-var punycode     = __webpack_require__(45);
+var punycode     = __webpack_require__(37);
 
 
 var config = {
@@ -38101,4 +38154,4 @@ function applyToTag (styleElement, obj) {
 
 /***/ })
 ]);
-//# sourceMappingURL=vendor.4cd96b8f99d00e06622e.js.map
+//# sourceMappingURL=vendor.f6f12761c9846ac97972.js.map
