@@ -7,13 +7,13 @@
       <a href="https://github.com/hinesboy/mavonEditor/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/hinesboy/mavonEditor/master" class="btn">Download .tar.gz</a>
     </section>
-    <div v-show="!screen_phone" class="item">
+    <div v-if="!screen_phone" class="item">
       <h2 class="item-header">
         默认配置
       </h2>
       <mavonEditor @change="change" @save="saveone" class="item-editor" v-model="help1"></mavonEditor>
     </div>
-    <div v-show="screen_phone" class="item">
+    <div v-if="screen_phone" class="item">
       <h2 class="item-header">
         自定义工具栏
       </h2>
