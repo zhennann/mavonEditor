@@ -11,7 +11,7 @@
       <h2 class="item-header">
         默认配置
       </h2>
-      <mavonEditor @save="saveone" class="item-editor" v-model="help1"></mavonEditor>
+      <mavonEditor @change="change" @save="saveone" class="item-editor" v-model="help1"></mavonEditor>
     </div>
     <div v-show="screen_phone" class="item">
       <h2 class="item-header">
@@ -90,6 +90,9 @@
       },
       savetwo (val, render) {
         alert('save two')
+      },
+      change (val, render) {
+        console.log('change')
       }
     },
     components: {
