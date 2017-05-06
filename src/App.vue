@@ -51,13 +51,13 @@
 <script type="text/ecmascript-6">
   import {mavonEditor} from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
-  const HELP = require('./assets/help.json')
+  const HELP = require('./assets/help.md')
   export default {
     name: 'app',
     data () {
       return {
-        help1: HELP.help,
-        help2: HELP.help,
+        help1: HELP,
+        help2: HELP,
         screen_phone: false,
         toolbars: {
           underline: true, // 下划线
