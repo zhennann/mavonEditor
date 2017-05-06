@@ -50,6 +50,7 @@
 
 <script type="text/ecmascript-6">
   import {mavonEditor} from 'mavon-editor'
+  import 'mavon-editor/dist/css/index.css'
   const HELP = require('./assets/help.json')
   export default {
     name: 'app',
