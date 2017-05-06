@@ -1,6 +1,6 @@
 # mavon-show
 
-> 用与展示mavonEditor
+> 展示mavonEditor
 
 
 
