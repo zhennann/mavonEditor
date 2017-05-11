@@ -16,7 +16,7 @@
       <h2 class="item-header">
         {{d_words.default_setting}}
       </h2>
-      <mavonEditor :language = "d_language" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavonEditor>
+      <mavon-editor :language = "d_language" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
     </div>
     <div v-if="screen_phone" class="item">
       <h2 class="item-header">
@@ -100,7 +100,7 @@
       }
     },
     components: {
-      'mavonEditor': mavonEditor
+      mavonEditor
     },
     watch: {
       d_language: function() {
