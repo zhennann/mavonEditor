@@ -16,13 +16,13 @@
       <h2 class="item-header">
         {{d_words.default_setting}}
       </h2>
-      <mavon-editor :subfield="subfield" :language = "d_language" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
+      <mavon-editor :code_style="code_style" :language = "d_language" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
     </div>
     <div v-if="screen_phone" class="item">
       <h2 class="item-header">
         {{d_words.customize_setting}}
       </h2>
-      <mavonEditor :language = "d_language" @save="savetwo" :toolbars="toolbars" class="item-editor" v-model="help2"></mavonEditor>
+      <mavonEditor  :language = "d_language" @save="savetwo" :toolbars="toolbars" class="item-editor" v-model="help2"></mavonEditor>
     </div>
     <div class="item">
       <span style="display: block;margin: 30px 0 15px 0;color: #1e6bb8" class="">
@@ -61,7 +61,8 @@
           readmodel: true,
           fullscreen: true, // 全屏编辑
           navigation: true
-        }
+        },
+        code_style: 'code-github'
       }
     },
     created () {
