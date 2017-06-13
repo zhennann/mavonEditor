@@ -16,7 +16,7 @@
       <h2 class="item-header">
         {{d_words.default_setting}}
       </h2>
-      <mavon-editor :language = "d_language" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
+      <mavon-editor :subfield="subfield" :language = "d_language" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
     </div>
     <div v-if="screen_phone" class="item">
       <h2 class="item-header">
@@ -47,6 +47,7 @@
     name: 'app',
     data () {
       return {
+        subfield: true,
         d_language: 'cn',
         help1: '',
         help2: '',
@@ -94,9 +95,9 @@
         this.d_language = event.target.value;
       },
       initLanguage() {
+        this.d_words = CONFIG[`words_${this.d_language}`]
         this.help1 = CONFIG[`help_${this.d_language}`]
         this.help2 = CONFIG[`help_${this.d_language}`]
-        this.d_words = CONFIG[`words_${this.d_language}`]
       }
     },
     components: {
