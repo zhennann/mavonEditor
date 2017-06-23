@@ -63,6 +63,9 @@ module.exports = {
       {
         test: /\.md$/,
         loader: 'raw-loader'
+      },{
+        test: /\.styl$/,
+        loader: 'style-loader!css-loader!stylus-loader'
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,

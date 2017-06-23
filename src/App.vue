@@ -16,7 +16,7 @@
       <h2 class="item-header">
         {{d_words.default_setting}}
       </h2>
-      <mavon-editor :default_open="default_open" :subfield = "subfield" :code_style="code_style" :language = "d_language" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
+      <mavon-editor :subfield = "subfield" :code_style="code_style" :language = "d_language" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
     </div>
     <div v-if="screen_phone" class="item">
       <h2 class="item-header">
@@ -47,20 +47,19 @@
     name: 'app',
     data () {
       return {
-        default_open: 'preview',
         d_language: 'cn',
         help1: '',
         help2: '',
         d_words: {},
         subfield: true,
-        screen_phone: false,
+        screen_phone: true,
         toolbars: {
           underline: true, // 下划线
           strikethrough: true, // 中划线
           undo: true,
           save: true,
           readmodel: true,
-          fullscreen: true, // 全屏编辑
+          subfield: true, // 全屏编辑
           navigation: true
         },
         code_style: 'code-github'
@@ -69,9 +68,10 @@
     created () {
       this.initLanguage();
       this.sizeToStatus()
+      let $this = this;
       window.onresize = function () {
         // 媒介查询
-        this.sizeToStatus()
+        $this.sizeToStatus()
       }
     },
     methods: {

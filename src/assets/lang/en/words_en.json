@@ -2,6 +2,6 @@
   "sub_title": "A markdown editor based on Vue",
   "default_setting": "Default Settings",
   "customize_setting": "Customize Toolbar",
-  "mark": "Note: If screen resolution less than 768px, replace【single column | double column】 edit mode to 【edit | preview】 edit mode, cancel【reading mode】.",
+  "mark": "Note: If screen resolution less than 768px, replace【single column | double column】 edit mode to 【edit | preview】 edit mode.",
   "detail": "Detailed Configuration API References"
 }
