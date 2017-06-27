@@ -28,8 +28,6 @@
       <span style="display: block;margin: 30px 0 15px 0;color: #1e6bb8" class="">
          {{d_words.mark}}
       </span>
-      <img width="100px" height="auto" src="./assets/img/1.png"/>
-      <img width="100px" height="auto" src="./assets/img/2.png"/>
     </div>
     <div class="item">
       <h2 class="item-header">
