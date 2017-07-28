@@ -17,7 +17,7 @@
       <h2 class="item-header">
         {{d_words.default_setting}}
       </h2>
-      <mavon-editor :subfield = "subfield" :code_style="code_style" :language = "d_language" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
+      <mavon-editor :subfield = "subfield" :code_style="code_style" :language = "d_language" :ishljs="true" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
     </div>
     <div v-if="screen_phone" class="item">
       <h2 class="item-header">
