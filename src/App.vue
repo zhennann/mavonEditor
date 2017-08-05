@@ -195,5 +195,7 @@
         margin-bottom: 1rem
     .item-editor
       width 100%
-      height 500px
+      height 700px
+      @media only screen and (max-width 1600px)
+        height 500px
 </style>
