@@ -2,6 +2,7 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -74,5 +75,14 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin([{
+        from: 'node_modules/mavon-editor/dist/highlightjs',
+        to: path.resolve(__dirname, '../dist/highlightjs')
+    }, {
+        from: 'node_modules/mavon-editor/dist/markdown',
+        to: path.resolve(__dirname, '../dist/markdown')
+    }]),
+  ]
 }

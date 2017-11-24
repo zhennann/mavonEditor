@@ -17,7 +17,9 @@
       <h2 class="item-header">
         {{d_words.default_setting}}
       </h2>
-      <mavon-editor :subfield = "subfield" :code_style="code_style" :language = "d_language" :ishljs="true" @change="change" @save="saveone" class="item-editor" v-model="help1"></mavon-editor>
+      <mavon-editor :subfield = "subfield" :code_style="code_style" :language = "d_language" :ishljs="true" @change="change" @save="saveone" class="item-editor" v-model="help1"
+      :external_link="external_link"
+      ></mavon-editor>
     </div>
     <div v-if="screen_phone" class="item">
       <h2 class="item-header">
@@ -62,7 +64,21 @@
           subfield: true, // 全屏编辑
           navigation: true
         },
-        code_style: 'code-github'
+        code_style: 'solarized-dark',
+        external_link: {
+            markdown_css: function() {
+                return '/markdown/github-markdown.min.css';
+            },
+            hljs_js: function() {
+                return '/highlightjs/highlight.min.js';
+            },
+            hljs_css: function(css) {
+                return '/highlightjs/styles/' + css + '.min.css';
+            },
+            hljs_lang: function(lang) {
+                return '/highlightjs/languages/' + lang + '.min.js';
+            },
+        }
       }
     },
     created () {
