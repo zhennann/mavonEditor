@@ -64,7 +64,7 @@
           subfield: true, // 全屏编辑
           navigation: true
         },
-        code_style: 'solarized-dark',
+        code_style: 'github',
         external_link: {
             markdown_css: function() {
                 return 'markdown/github-markdown.min.css';
