@@ -17,7 +17,7 @@
       <h2 class="item-header">
         {{d_words.default_setting}}
       </h2>
-      <mavon-editor :subfield = "subfield" :code_style="code_style" :language = "d_language" :ishljs="true" @change="change" @save="saveone" class="item-editor" v-model="help1"
+      <mavon-editor ref="md" :subfield = "subfield" :code_style="code_style" :language = "d_language" :ishljs="true" @change="change" @save="saveone" class="item-editor" v-model="help1"
       :external_link="external_link"
       ></mavon-editor>
     </div>
@@ -25,7 +25,7 @@
       <h2 class="item-header">
         {{d_words.customize_setting}}
       </h2>
-      <mavonEditor  :language = "d_language" @save="savetwo" :toolbars="toolbars" class="item-editor" v-model="help2"></mavonEditor>
+      <mavonEditor :subfield = "false" :language = "d_language" @save="savetwo" :toolbars="toolbars" class="item-editor" v-model="help2"></mavonEditor>
     </div>
     <div class="item">
       <span style="display: block;margin: 30px 0 15px 0;color: #1e6bb8" class="">
@@ -61,8 +61,8 @@
           undo: true,
           save: true,
           readmodel: true,
-          subfield: true, // 全屏编辑
-          navigation: true
+          navigation: true,
+          preview: true
         },
         code_style: 'github',
         external_link: {
