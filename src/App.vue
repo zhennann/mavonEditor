@@ -17,9 +17,8 @@
       <h2 class="item-header">
         {{d_words.default_setting}}
       </h2>
-      <mavon-editor ref="md" :subfield = "subfield" :code_style="code_style" :language = "d_language" :ishljs="true" @change="change" @save="saveone" class="item-editor" v-model="help1"
-      :external_link="external_link"
-      ></mavon-editor>
+      <mavon-editor ref="md" :subfield = "subfield" :toolbarsFlag = "toolbarsFlag"  :codeStyle="code_style" :language = "d_language" :ishljs="true" @change="change" @save="saveone" class="item-editor" v-model="help1"
+      :external_link="external_link"></mavon-editor>
     </div>
     <div v-if="screen_phone" class="item">
       <h2 class="item-header">
@@ -49,18 +48,20 @@
     name: 'app',
     data () {
       return {
-        d_language: 'cn',
+        d_language: 'zh-CN',
         help1: '',
         help2: '',
         d_words: {},
         subfield: true,
+        toolbarsFlag: true,
+        default_open: 'edit',
         screen_phone: true,
         toolbars: {
           underline: true, // 下划线
           strikethrough: true, // 中划线
           undo: true,
           save: true,
-          readmodel: true,
+          readmodel: false,
           navigation: true,
           preview: true
         },
