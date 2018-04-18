@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <select @change="opchange" class="page-lang">
-      <option value ="cn">中文</option>
-      <option value ="en">English</option>
+      <option value="zh-CN">中文</option>
+      <option value="en">English</option>
       <option value="fr">Français</option>
+      <option value="pt-BR">Português</option>
     </select>
 
     <section class="page-header">
