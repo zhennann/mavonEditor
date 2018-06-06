@@ -2873,9 +2873,9 @@ math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
 
-mavon-editor@2.6.3:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/mavon-editor/-/mavon-editor-2.6.3.tgz#91975605f75e96af30ba002134ed5d012962dfbb"
+mavon-editor@2.6.5:
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/mavon-editor/-/mavon-editor-2.6.5.tgz#5e709947a74b79dddd34965739fcc9cfbb415faf"
   dependencies:
     highlight.js "^9.11.0"
     highlight.js-async-webpack "^1.0.4"
