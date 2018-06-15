@@ -1,3 +1,5 @@
+@[toc](Directory)
+
 Guia Markdown
 ===
 > Detalhes: [http://commonmark.org/help/](http://commonmark.org/help/)
