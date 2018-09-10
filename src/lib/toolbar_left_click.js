@@ -9,6 +9,14 @@
  * @Copyright: 2017
  */
 
+function $toolbar_left_block_click($vm) {
+    if (!$vm.onBlockAdd) return;
+    $vm.onBlockAdd().then(data => {
+        toolbar_left_addlink('block', data.name, data.content, $vm);
+    }).catch(() => {})
+}
+
+// undo
 function $toolbar_left_undo_click($vm) {
     if ($vm.d_history_index > 0) {
         $vm.d_history_index--
@@ -55,11 +63,39 @@ function $toolbar_left_remove_line_click($vm) {
 }
 // 直接添加链接
 export const toolbar_left_addlink = (type, text, link, $vm) => {
-    let insert_text = {
+    let insert_text;
+    if (type === 'block') {
+       insert_text = {
+        prefix: `$$$ ${text}\n`,
+        subfix: '\n$$$\n',
+        str: JSON.stringify(link,null,2)
+      };
+    }
+    else if (type === 'audiolink') {
+      insert_text = {
+        prefix: '::: audio',
+        subfix: ':::\n',
+        str:
+`
+{
+  "autoplay": true,
+  "audio":
+  {
+    "name": "${text}",
+    "url": "${link}",
+    "artist": "",
+    "cover": ""
+  }
+}
+`
+      };
+    } else {
+      insert_text = {
         prefix: type === 'link' ? `[${text}](` : `![${text}](`,
         subfix: ')',
         str: link
-    };
+      };
+    }
     $vm.insertText($vm.getTextareaDom(), insert_text);
 }
 export const toolbar_left_click = (_type, $vm) => {
@@ -149,6 +185,11 @@ export const toolbar_left_click = (_type, $vm) => {
              subfix: ')',
              str: $vm.d_words.tl_image
          },
+         'audiolink': {
+           prefix: '::: audio\n\n',
+           subfix: '\n\n:::\n',
+           str: $vm.d_words.tl_audio
+         },
          'code': {
              prefix: '```',
              subfix: '\n\n```\n',
@@ -187,7 +228,8 @@ export const toolbar_left_click = (_type, $vm) => {
          'save': $toolbar_left_save_click,
          'ol': $toolbar_left_ol_click,
          'ul': $toolbar_left_ul_click,
-         'removeLine': $toolbar_left_remove_line_click
+         'removeLine': $toolbar_left_remove_line_click,
+         'block': $toolbar_left_block_click
      };
      if (_other_left_click.hasOwnProperty(_type)) {
          _other_left_click[_type]($vm);

@@ -16,11 +16,11 @@ import hljsLangs from './hljs/lang.hljs.js'
  */
 // default mode
 var markdown_config = {
-    html: true,        // Enable HTML tags in source
-    xhtmlOut: true,        // Use '/' to close single tags (<br />).
-    breaks: true,        // Convert '\n' in paragraphs into <br>
+    html: false,        // Enable HTML tags in source
+    xhtmlOut: false,        // Use '/' to close single tags (<br />).
+    breaks: false,        // Convert '\n' in paragraphs into <br>
     langPrefix: 'language-',  // CSS language prefix for fenced blocks. Can be
-    linkify: false,        // 自动识别url
+    linkify: true,        // 自动识别url
     typographer: true,
     quotes: '“”‘’',
     highlight: function (str, lang) {
@@ -76,6 +76,11 @@ markdown.use(emoji)
     .use(sup)
     .use(sub)
     .use(container)
+    .use(container, 'comment-quot')
+    .use(container, 'alert-success')
+    .use(container, 'alert-info')
+    .use(container, 'alert-warning')
+    .use(container, 'alert-danger')
     .use(container, 'hljs-left') /* align left */
     .use(container, 'hljs-center')/* align center */
     .use(container, 'hljs-right')/* align right */

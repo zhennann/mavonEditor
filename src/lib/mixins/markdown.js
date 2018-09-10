@@ -3,11 +3,11 @@ import {
     loadScript
 } from '../core/extra-function.js'
 var markdown_config = {
-    html: true,        // Enable HTML tags in source
-    xhtmlOut: true,        // Use '/' to close single tags (<br />).
-    breaks: true,        // Convert '\n' in paragraphs into <br>
+    html: false,        // Enable HTML tags in source
+    xhtmlOut: false,        // Use '/' to close single tags (<br />).
+    breaks: false,        // Convert '\n' in paragraphs into <br>
     langPrefix: 'lang-',  // CSS language prefix for fenced blocks. Can be
-    linkify: false,        // 自动识别url
+    linkify: true,        // 自动识别url
     typographer: true,
     quotes: '“”‘’'
 }
@@ -32,8 +32,11 @@ var mark = require('markdown-it-mark')
 var taskLists = require('markdown-it-task-lists')
 // container
 var container = require('markdown-it-container')
-//
+// toc
 var toc = require('markdown-it-toc')
+// block
+var block = require('@zhennann/markdown-it-block')
+
 // add target="_blank" to all link
 var defaultRender = markdown.renderer.rules.link_open || function(tokens, idx, options, env, self) {
     return self.renderToken(tokens, idx, options);
@@ -67,11 +70,25 @@ var hljs_opts = {
         }
     }
 };
+
+var blockOptions = {
+    utils:{
+        text(arg) {
+           return arg;
+        }
+    }
+}
+
 markdown.use(mihe, hljs_opts)
     .use(emoji)
     .use(sup)
     .use(sub)
     .use(container)
+    .use(container, 'comment-quot')
+    .use(container, 'alert-success')
+    .use(container, 'alert-info')
+    .use(container, 'alert-warning')
+    .use(container, 'alert-danger')
     .use(container, 'hljs-left') /* align left */
     .use(container, 'hljs-center')/* align center */
     .use(container, 'hljs-right')/* align right */
@@ -80,11 +97,11 @@ markdown.use(mihe, hljs_opts)
     .use(footnote)
     .use(insert)
     .use(mark)
-    .use(container)
     .use(miip)
     .use(katex)
     .use(taskLists)
     .use(toc)
+    .use(block,blockOptions)
 
 export default {
     data() {

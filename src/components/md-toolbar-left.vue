@@ -7,7 +7,7 @@
         <button :disabled="!editable" type="button" v-if="toolbars.italic" @click="$clicks('italic')"
                 class="op-icon fa fa-mavon-italic" aria-hidden="true"
                 :title="`${d_words.tl_italic} (ctrl+i)`"></button>
-        <div :class="{'selected': s_header_dropdown_open}" :disabled="!editable" type="button" v-if="toolbars.header" @mouseleave="$mouseleave_header_dropdown" @mouseenter="$mouseenter_header_dropdown"
+        <div :class="{'selected': s_header_dropdown_open}" :disabled="!editable" type="button" v-if="toolbars.header" @click.stop="$mouseenter_header_dropdown" @mouseleave="$mouseleave_header_dropdown" @mouseenter="$mouseenter_header_dropdown"
                 class="op-icon fa fa-mavon-header dropdown dropdown-wrapper" aria-hidden="true"
                 :title="`${d_words.tl_header} (ctrl+h)`">
             <transition name="fade">
@@ -63,31 +63,23 @@
         <button :disabled="!editable" type="button" v-if="toolbars.link" @click.stop="$toggle_imgLinkAdd('link')"
                 class="op-icon fa fa-mavon-link" aria-hidden="true"
                 :title="`${d_words.tl_link} (ctrl+l)`"></button>
-        <div :disabled="!editable" :class="{'selected': s_img_dropdown_open}" type="button" v-if="toolbars.imagelink" @mouseleave="$mouseleave_img_dropdown" @mouseenter="$mouseenter_img_dropdown"
+        <div :disabled="!editable" :class="{'selected': s_img_dropdown_open}" type="button" v-if="toolbars.imagelink" @click.stop="$mouseenter_img_dropdown" @mouseleave="$mouseleave_img_dropdown" @mouseenter="$mouseenter_img_dropdown"
                 class="op-icon fa fa-mavon-picture-o dropdown dropdown-wrapper"
                 aria-hidden="true">
             <transition name="fade">
                 <div  class="op-image popup-dropdown" v-show="s_img_dropdown_open" @mouseleave="$mouseleave_img_dropdown" @mouseenter="$mouseenter_img_dropdown">
-                    <div  class="dropdown-item" @click.stop="$toggle_imgLinkAdd('imagelink')"><span>{{d_words.tl_image}}</span></div>
-                    <div class="dropdown-item" style="overflow: hidden">
-                        <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="$imgAdd($event)" multiple="multiple"/>{{d_words.tl_upload}}
-                    </div>
-
-                    <div
-                        v-for="(item, index) in img_file"
-                        v-if="item && item[0]"
-                        class="dropdown-item dropdown-images"
-                        :title="item[0].name"
-                        :key="index"
-                        @click.stop="$imgFileListClick(index)"
-                    >
-                        <span>{{item[0].name}}</span>
-                        <button slot="right" type="button" @click.stop="$imgDel(index)"
-                                class="op-icon fa fa-mavon-trash-o" aria-hidden="true"
-                                :title="d_words.tl_upload_remove"></button>
-                        <!-- 缩略图展示 -->
-                        <img class = "image-show" :src="item[0].miniurl" alt="none">
-                    </div>
+                    <div class="dropdown-item" @click.stop="$toggle_imgLinkAdd('imagelink')"><span>{{d_words.tl_image}}</span></div>
+                    <div class="dropdown-item" @click.stop="$imgLinkUpload"><span>{{d_words.tl_upload}}</span></div>
+                </div>
+            </transition>
+        </div>
+        <div :disabled="!editable" :class="{'selected': s_audio_dropdown_open}" type="button" v-if="toolbars.audiolink" @click.stop="$mouseenter_audio_dropdown" @mouseleave="$mouseleave_audio_dropdown" @mouseenter="$mouseenter_audio_dropdown"
+                class="op-icon fa fa-mavon-file-audio dropdown dropdown-wrapper"
+                aria-hidden="true">
+            <transition name="fade">
+                <div  class="op-audio popup-dropdown" v-show="s_audio_dropdown_open" @mouseleave="$mouseleave_audio_dropdown" @mouseenter="$mouseenter_audio_dropdown">
+                    <div class="dropdown-item" @click.stop="$toggle_imgLinkAdd('audiolink')"><span>{{d_words.tl_audio}}</span></div>
+                    <div class="dropdown-item" @click.stop="$audioLinkUpload"><span>{{d_words.tl_uploadaudio}}</span></div>
                 </div>
             </transition>
         </div>
@@ -97,7 +89,10 @@
         <button :disabled="!editable" type="button" v-if="toolbars.table" @click="$clicks('table')"
                 class="op-icon fa fa-mavon-table" aria-hidden="true"
                 :title="`${d_words.tl_table} (ctrl+alt+t)`"></button>
-        <span v-if="toolbars.link || toolbars.imagelink || toolbars.code || toolbars.table"
+        <button :disabled="!editable" type="button" v-if="toolbars.block" @click="$clicks('block')"
+                class="op-icon fa fa-mavon-plus" aria-hidden="true"
+                :title="`${d_words.tl_block} (ctrl+alt+b)`"></button>
+        <span v-if="toolbars.link || toolbars.imagelink || toolbars.code || toolbars.table || toolbars.block"
               class="op-icon-divider"></span>
         <button type="button" v-if="toolbars.undo" @click="$clicks('undo')" class="op-icon fa fa-mavon-undo"
                 aria-hidden="true" :title="`${d_words.tl_undo} (ctrl+z)`"></button>
@@ -118,18 +113,19 @@
                 <div class="add-image-link">
                     <i @click.stop.prevent="s_img_link_open = false" class="fa fa-mavon-times"
                        aria-hidden="true"></i>
-                    <h3 class="title">{{link_type == 'link' ? d_words.tl_popup_link_title : d_words.tl_popup_img_link_title}}</h3>
+                    <h3 class="title">{{link_type == 'link' ? d_words.tl_popup_link_title : (link_type == 'imagelink' ? d_words.tl_popup_img_link_title : d_words.tl_popup_audio_link_title)}}</h3>
                     <div class="link-text input-wrapper">
-                        <input ref="linkTextInput" type="text" v-model="link_text" :placeholder="link_type == 'link' ? d_words.tl_popup_link_text : d_words.tl_popup_img_link_text">
+                        <input ref="linkTextInput" type="text" v-model="link_text" :placeholder="link_type == 'link' ? d_words.tl_popup_link_text : (link_type == 'imagelink' ? d_words.tl_popup_img_link_text : d_words.tl_popup_audio_link_text)">
                     </div>
                     <div class="link-addr input-wrapper">
-                        <input type="text" v-model="link_addr" :placeholder="link_type == 'link' ? d_words.tl_popup_link_addr : d_words.tl_popup_img_link_addr">
+                        <input type="text" v-model="link_addr" :placeholder="link_type == 'link' ? d_words.tl_popup_link_addr : (link_type == 'imagelink' ? d_words.tl_popup_img_link_addr : d_words.tl_popup_audio_link_addr)">
                     </div>
                     <div class="op-btn cancel" @click.stop="s_img_link_open = false">{{d_words.tl_popup_link_cancel}}</div>
                     <div class="op-btn sure" @click.stop="$imgLinkAdd()">{{d_words.tl_popup_link_sure}}</div>
                 </div>
             </div>
         </transition>
+
     </div>
 </template>
 <script type="text/ecmascript-6">
@@ -153,6 +149,15 @@
             image_filter: {
                 type: Function,
                 default: null
+            },
+            onImageUpload: {
+                type: Function
+            },
+            onAudioUpload: {
+                type: Function
+            },
+            onBlockAdd: {
+                type: Function
             }
         },
         data() {
@@ -160,21 +165,39 @@
                 // [index, file]
                 img_file: [[0, null]],
                 img_timer: null,
+                audio_timer: null,
                 header_timer: null,
                 s_img_dropdown_open: false,
+                s_audio_dropdown_open: false,
                 s_header_dropdown_open: false,
                 s_img_link_open: false,
                 trigger: null,
                 num: 0,
                 link_text: '',
                 link_addr: '',
-                link_type: 'link'
+                link_type: 'link', // imagelink audiolink
             }
         },
         methods: {
             $imgLinkAdd() {
                 this.$emit('toolbar_left_addlink', this.link_type, this.link_text, this.link_addr);
                 this.s_img_link_open = false;
+            },
+            $imgLinkUpload(){
+               this.s_img_dropdown_open = false;
+               if(this.onImageUpload){
+                   this.onImageUpload().then(data=>{
+                        this.$emit('toolbar_left_addlink', 'imagelink', data.text, data.addr);
+                   }).catch(err=>{})
+               };
+            },
+            $audioLinkUpload(){
+               this.s_audio_dropdown_open = false;
+               if(this.onAudioUpload){
+                   this.onAudioUpload().then(data=>{
+                        this.$emit('toolbar_left_addlink', 'audiolink', data.text, data.addr);
+                   }).catch(err=>{})
+               };
             },
             $toggle_imgLinkAdd(type) {
                 this.link_type = type;
@@ -184,6 +207,7 @@
                     this.$refs.linkTextInput.focus()
                 })
                 this.s_img_dropdown_open = false;
+                this.s_audio_dropdown_open = false;
             },
             $imgFileListClick(pos) {
                 this.$emit('imgTouch', this.img_file[pos]);
@@ -283,6 +307,18 @@
                     vm.s_img_dropdown_open = false
                 },200)
             },
+            $mouseenter_audio_dropdown() {
+                if (this.editable) {
+                    clearTimeout(this.audio_timer)
+                    this.s_audio_dropdown_open = true
+                }
+            },
+            $mouseleave_audio_dropdown() {
+                let vm = this
+                this.audio_timer = setTimeout(function() {
+                    vm.s_audio_dropdown_open = false
+                },200)
+            },
             $mouseenter_header_dropdown() {
                 if (this.editable) {
                     clearTimeout(this.header_timer)
@@ -308,6 +344,7 @@
             },
             handleClose(e) {
                 this.s_img_dropdown_open = false;
+                this.s_audio_dropdown_open = false;
             }
         }
     }

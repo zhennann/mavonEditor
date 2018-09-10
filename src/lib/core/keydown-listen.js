@@ -303,6 +303,12 @@ export const keydownListen = ($vm) => {
                     $vm.toolbar_left_click('table')
                     break;
                 }
+                case KEY_CODE.B: {
+                    // B
+                    e.preventDefault()
+                    $vm.toolbar_left_click('block')
+                    break;
+                }
             }
         } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && !e.altKey) {
             // ctrl + shift
