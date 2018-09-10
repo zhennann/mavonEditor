@@ -7,7 +7,7 @@
         <button :disabled="!editable" type="button" v-if="toolbars.italic" @click="$clicks('italic')"
                 class="op-icon fa fa-mavon-italic" aria-hidden="true"
                 :title="`${d_words.tl_italic} (ctrl+i)`"></button>
-        <div :class="{'selected': s_header_dropdown_open}" :disabled="!editable" type="button" v-if="toolbars.header" @mouseleave="$mouseleave_header_dropdown" @mouseenter="$mouseenter_header_dropdown"
+        <div :class="{'selected': s_header_dropdown_open}" :disabled="!editable" type="button" v-if="toolbars.header" @click.stop="$mouseenter_header_dropdown" @mouseleave="$mouseleave_header_dropdown" @mouseenter="$mouseenter_header_dropdown"
                 class="op-icon fa fa-mavon-header dropdown dropdown-wrapper" aria-hidden="true"
                 :title="`${d_words.tl_header} (ctrl+h)`">
             <transition name="fade">
@@ -63,31 +63,13 @@
         <button :disabled="!editable" type="button" v-if="toolbars.link" @click.stop="$toggle_imgLinkAdd('link')"
                 class="op-icon fa fa-mavon-link" aria-hidden="true"
                 :title="`${d_words.tl_link} (ctrl+l)`"></button>
-        <div :disabled="!editable" :class="{'selected': s_img_dropdown_open}" type="button" v-if="toolbars.imagelink" @mouseleave="$mouseleave_img_dropdown" @mouseenter="$mouseenter_img_dropdown"
+        <div :disabled="!editable" :class="{'selected': s_img_dropdown_open}" type="button" v-if="toolbars.imagelink" @click.stop="$mouseenter_img_dropdown" @mouseleave="$mouseleave_img_dropdown" @mouseenter="$mouseenter_img_dropdown"
                 class="op-icon fa fa-mavon-picture-o dropdown dropdown-wrapper"
                 aria-hidden="true">
             <transition name="fade">
                 <div  class="op-image popup-dropdown" v-show="s_img_dropdown_open" @mouseleave="$mouseleave_img_dropdown" @mouseenter="$mouseenter_img_dropdown">
-                    <div  class="dropdown-item" @click.stop="$toggle_imgLinkAdd('imagelink')"><span>{{d_words.tl_image}}</span></div>
-                    <div class="dropdown-item" style="overflow: hidden">
-                        <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="$imgAdd($event)" multiple="multiple"/>{{d_words.tl_upload}}
-                    </div>
-
-                    <div
-                        v-for="(item, index) in img_file"
-                        v-if="item && item[0]"
-                        class="dropdown-item dropdown-images"
-                        :title="item[0].name"
-                        :key="index"
-                        @click.stop="$imgFileListClick(index)"
-                    >
-                        <span>{{item[0].name}}</span>
-                        <button slot="right" type="button" @click.stop="$imgDel(index)"
-                                class="op-icon fa fa-mavon-trash-o" aria-hidden="true"
-                                :title="d_words.tl_upload_remove"></button>
-                        <!-- 缩略图展示 -->
-                        <img class = "image-show" :src="item[0].miniurl" alt="none">
-                    </div>
+                    <div class="dropdown-item" @click.stop="$toggle_imgLinkAdd('imagelink')"><span>{{d_words.tl_image}}</span></div>
+                    <div class="dropdown-item" @click.stop="$imgLinkUpload"><span>{{d_words.tl_upload}}</span></div>
                 </div>
             </transition>
         </div>
@@ -153,6 +135,9 @@
             image_filter: {
                 type: Function,
                 default: null
+            },
+            onImageUpload:{
+                type: Function
             }
         },
         data() {
@@ -175,6 +160,14 @@
             $imgLinkAdd() {
                 this.$emit('toolbar_left_addlink', this.link_type, this.link_text, this.link_addr);
                 this.s_img_link_open = false;
+            },
+            $imgLinkUpload(){
+               this.s_img_dropdown_open = false;
+               if(this.onImageUpload){
+                   this.onImageUpload().then(data=>{
+                        this.$emit('toolbar_left_addlink', 'imagelink', data.text, data.addr);
+                   }).catch(err=>{})
+               };
             },
             $toggle_imgLinkAdd(type) {
                 this.link_type = type;

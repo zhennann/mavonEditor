@@ -1,19 +1,12 @@
 <template>
-    <div :class="[{'fullscreen': s_fullScreen}]" class="v-note-wrapper markdown-body">
+    <div :class="[{'fullscreen': s_fullScreen}]" class="v-note-wrapper markdown-body" @click="onClickContainer">
         <!--工具栏-->
         <div class="v-note-op" v-show="toolbarsFlag" :class="{'shadow': boxShadow}">
-            <v-md-toolbar-left ref="toolbar_left" :editable="editable" :d_words="d_words"
-                               @toolbar_left_click="toolbar_left_click" @toolbar_left_addlink="toolbar_left_addlink" :toolbars="toolbars"
-                               @imgAdd="$imgAdd" @imgDel="$imgDel" @imgTouch="$imgTouch" :image_filter="imageFilter">
+            <v-md-toolbar-left ref="toolbar_left" :editable="editable" :d_words="d_words" @toolbar_left_click="toolbar_left_click" @toolbar_left_addlink="toolbar_left_addlink" :toolbars="toolbars" @imgAdd="$imgAdd" @imgDel="$imgDel" @imgTouch="$imgTouch" :image_filter="imageFilter" :onImageUpload="onImageUpload">
                 <slot name="left-toolbar-before" slot="left-toolbar-before" />
                 <slot name="left-toolbar-after" slot="left-toolbar-after" />
             </v-md-toolbar-left>
-            <v-md-toolbar-right ref="toolbar_right" :d_words="d_words" @toolbar_right_click="toolbar_right_click"
-                                :toolbars="toolbars"
-                                :s_subfield="s_subfield"
-                                :s_preview_switch="s_preview_switch" :s_fullScreen="s_fullScreen"
-                                :s_html_code="s_html_code"
-                                :s_navigation="s_navigation">
+            <v-md-toolbar-right ref="toolbar_right" :d_words="d_words" @toolbar_right_click="toolbar_right_click" :toolbars="toolbars" :s_subfield="s_subfield" :s_preview_switch="s_preview_switch" :s_fullScreen="s_fullScreen" :s_html_code="s_html_code" :s_navigation="s_navigation">
                 <slot name="right-toolbar-before" slot="right-toolbar-before" />
                 <slot name="right-toolbar-after" slot="right-toolbar-after" />
             </v-md-toolbar-right>
@@ -21,48 +14,37 @@
         <!--编辑展示区域-->
         <div class="v-note-panel" :class="{'shadow': boxShadow}">
             <!--编辑区-->
-            <div ref="vNoteEdit" @scroll="$v_edit_scroll" class="v-note-edit divarea-wrapper"
-                 :class="{'scroll-style': s_scrollStyle  , 'single-edit': !s_preview_switch && !s_html_code , 'single-show': (!s_subfield && s_preview_switch) || (!s_subfield && s_html_code)}"
-                 @click="textAreaFocus">
+            <div ref="vNoteEdit" @scroll="$v_edit_scroll" class="v-note-edit divarea-wrapper" :class="{'scroll-style': s_scrollStyle  , 'single-edit': !s_preview_switch && !s_html_code , 'single-show': (!s_subfield && s_preview_switch) || (!s_subfield && s_html_code)}" @click="textAreaFocus">
                 <div class="content-input-wrapper">
                     <!-- 双栏 -->
-                    <v-autoTextarea ref="vNoteTextarea" :placeholder="placeholder ? placeholder : d_words.start_editor"
-                                    class="content-input" :fontSize="fontSize"
-                                    lineHeight="1.5" v-model="d_value" fullHeight></v-autoTextarea>
+                    <v-autoTextarea ref="vNoteTextarea" :placeholder="placeholder ? placeholder : d_words.start_editor" class="content-input" :fontSize="fontSize" lineHeight="1.5" v-model="d_value" fullHeight></v-autoTextarea>
                 </div>
             </div>
             <!--展示区-->
-            <div :class="{'single-show': (!s_subfield && s_preview_switch) || (!s_subfield && s_html_code)}"
-                 v-show="s_preview_switch || s_html_code" class="v-note-show">
-                <div ref="vShowContent" v-html="d_render" v-show="!s_html_code"
-                     :class="{'scroll-style': s_scrollStyle}" class="v-show-content">
+            <div :class="{'single-show': (!s_subfield && s_preview_switch) || (!s_subfield && s_html_code)}" v-show="s_preview_switch || s_html_code" class="v-note-show">
+                <div ref="vShowContent" v-html="d_render" v-show="!s_html_code" :class="{'scroll-style': s_scrollStyle}" class="v-show-content">
                 </div>
                 <div v-show="s_html_code" :class="{'scroll-style': s_scrollStyle}" class="v-show-content-html">
                     {{d_render}}
                 </div>
             </div>
-
             <!--标题导航-->
             <transition name="slideTop">
                 <div v-show="s_navigation" class="v-note-navigation-wrapper" :class="{'shadow': boxShadow}">
                     <div class="v-note-navigation-title" :class="{'shadow': boxShadow}">
-                        {{d_words.navigation_title}}<i @click="toolbar_right_click('navigation')"
-                                                       class="fa fa-mavon-times v-note-navigation-close"
-                                                       aria-hidden="true"></i>
+                        {{d_words.navigation_title}}<i @click="toolbar_right_click('navigation')" class="fa fa-mavon-times v-note-navigation-close" aria-hidden="true"></i>
                     </div>
                     <div ref="navigationContent" class="v-note-navigation-content scroll-style">
                     </div>
                 </div>
             </transition>
-
         </div>
         <!--帮助文档-->
         <transition name="fade">
             <div ref="help">
                 <div @click="toolbar_right_click('help')" class="v-note-help-wrapper" v-if="s_help">
                     <div class="v-note-help-content markdown-body" :class="{'shadow': boxShadow}">
-                        <i @click.stop.prevent="toolbar_right_click('help')" class="fa fa-mavon-times"
-                           aria-hidden="true"></i>
+                        <i @click.stop.prevent="toolbar_right_click('help')" class="fa fa-mavon-times" aria-hidden="true"></i>
                         <div class="scroll-style v-note-help-show" v-html="d_help"></div>
                     </div>
                 </div>
@@ -81,16 +63,15 @@
         </div>
     </div>
 </template>
-
 <script>
-    // import tomarkdown from './lib/core/to-markdown.js'
-import {autoTextarea} from 'auto-textarea'
-import {keydownListen} from './lib/core/keydown-listen.js'
+// import tomarkdown from './lib/core/to-markdown.js'
+import { autoTextarea } from 'auto-textarea'
+import { keydownListen } from './lib/core/keydown-listen.js'
 import hljsCss from './lib/core/hljs/lang.hljs.css.js'
 import hljsLangs from './lib/core/hljs/lang.hljs.js'
 import {
     fullscreenchange,
-   /* windowResize, */
+    /* windowResize, */
     scrollLink,
     insertTextAtCaret,
     getNavigation,
@@ -104,10 +85,10 @@ import {
     loadScript,
     ImagePreviewListener
 } from './lib/core/extra-function.js'
-import {p_ObjectCopy_DEEP, stopEvent} from './lib/util.js'
-import {toolbar_left_click, toolbar_left_addlink} from './lib/toolbar_left_click.js'
-import {toolbar_right_click} from './lib/toolbar_right_click.js'
-import {CONFIG} from './lib/config.js'
+import { p_ObjectCopy_DEEP, stopEvent } from './lib/util.js'
+import { toolbar_left_click, toolbar_left_addlink } from './lib/toolbar_left_click.js'
+import { toolbar_right_click } from './lib/toolbar_right_click.js'
+import { CONFIG } from './lib/config.js'
 import hljs from './lib/core/highlight.js'
 import markdown from './lib/mixins/markdown.js'
 
@@ -173,13 +154,13 @@ export default {
         // 工具栏
         toolbars: {
             type: Object,
-            default() {
+            default () {
                 return CONFIG.toolbars
             }
         },
         codeStyle: {
             type: String,
-            default() {
+            default () {
                 return 'github';
             }
         },
@@ -202,6 +183,9 @@ export default {
         imageClick: {
             type: Function,
             default: null
+        },
+        onImageUpload: {
+            type: Function
         }
     },
     data() {
@@ -219,9 +203,9 @@ export default {
             })(),
             s_scrollStyle: (() => {
                 return this.scrollStyle
-            })(),// props 是否渲染滚动条样式
-            d_value: '',// props 文本内容
-            d_render: '',// props 文本内容render
+            })(), // props 是否渲染滚动条样式
+            d_value: '', // props 文本内容
+            d_render: '', // props 文本内容render
             s_preview_switch: (() => {
                 let default_open_ = this.defaultOpen;
                 if (!default_open_) {
@@ -229,9 +213,9 @@ export default {
                 }
                 return default_open_ === 'preview' ? true : false;
             })(), // props true 展示编辑 false展示预览
-            s_fullScreen: false,// 全屏编辑标志
-            s_help: false,// markdown帮助
-            s_html_code: false,// 分栏情况下查看html
+            s_fullScreen: false, // 全屏编辑标志
+            s_help: false, // markdown帮助
+            s_html_code: false, // 分栏情况下查看html
             d_help: null,
             d_words: null,
             edit_scroll_height: -1,
@@ -284,19 +268,21 @@ export default {
     },
     mounted() {
         var $vm = this;
-        this.$el.addEventListener('paste', function (e) {
+        /*
+        this.$el.addEventListener('paste', function(e) {
             $vm.$paste(e);
         })
-        this.$el.addEventListener('drop', function (e) {
+        this.$el.addEventListener('drop', function(e) {
             $vm.$drag(e);
         })
+        */
         // 浏览器siz大小
-       /* windowResize(this); */
+        /* windowResize(this); */
         keydownListen(this);
         // 图片预览事件监听
         ImagePreviewListener(this);
         // 设置默认焦点
-        if(this.autofocus) {
+        if (this.autofocus) {
             this.getTextareaDom().focus();
         }
         // fullscreen事件
@@ -323,6 +309,12 @@ export default {
         return this.mixins[0].data().markdownIt
     },
     methods: {
+        onClickContainer() {
+            if (this.$refs.toolbar_left) {
+                this.$refs.toolbar_left.$mouseleave_header_dropdown();
+                this.$refs.toolbar_left.$mouseleave_img_dropdown();
+            }
+        },
         loadExternalLink(name, type, callback) {
             if (typeof this.p_external_link[name] !== 'function') {
                 if (this.p_external_link[name] != false) {
@@ -411,19 +403,18 @@ export default {
                 this.__rFilter = /^image\//i;
             }
             this.__oFReader = new FileReader();
-            this.__oFReader.onload = function (oFREvent) {
+            this.__oFReader.onload = function(oFREvent) {
                 $vm.markdownIt.image_add(pos, oFREvent.target.result);
                 $file.miniurl = oFREvent.target.result;
                 if (isinsert === true) {
                     // 去除特殊字符
                     $file._name = $file.name.replace(/[\[\]\(\)\+\{\}&\|\\\*^%$#@\-]/g, '');
-                    $vm.insertText($vm.getTextareaDom(),
-                        {
-                            prefix: '![' + $file._name + '](' + pos + ')',
-                            subfix: '',
-                            str: ''
-                        });
-                    $vm.$nextTick(function () {
+                    $vm.insertText($vm.getTextareaDom(), {
+                        prefix: '![' + $file._name + '](' + pos + ')',
+                        subfix: '',
+                        str: ''
+                    });
+                    $vm.$nextTick(function() {
                         $vm.$emit('imgAdd', pos, $file);
                     })
                 }
@@ -438,7 +429,7 @@ export default {
         $imgUpdateByUrl(pos, url) {
             var $vm = this;
             this.markdownIt.image_add(pos, url);
-            this.$nextTick(function () {
+            this.$nextTick(function() {
                 $vm.d_render = this.markdownIt.render(this.d_value);
             })
         },
@@ -532,9 +523,9 @@ export default {
             return this.$refs.vNoteTextarea.$refs.vTextarea;
         },
         // 工具栏插入内容
-        insertText(obj, {prefix, subfix, str, type}) {
+        insertText(obj, { prefix, subfix, str, type }) {
             // if (this.s_preview_switch) {
-            insertTextAtCaret(obj, {prefix, subfix, str, type}, this);
+            insertTextAtCaret(obj, { prefix, subfix, str, type }, this);
         },
         insertTab() {
             insertTab(this)
@@ -579,8 +570,7 @@ export default {
         codeStyleChange(val, isInit) {
             isInit = isInit ? isInit : false;
             if (typeof this.p_external_link.hljs_css !== 'function') {
-                if (this.p_external_link.hljs_css != false)
-                { console.error('external_link.hljs_css is not a function, if you want to disabled this error log, set external_link.hljs_css to function or false'); }
+                if (this.p_external_link.hljs_css != false) { console.error('external_link.hljs_css is not a function, if you want to disabled this error log, set external_link.hljs_css to function or false'); }
                 return;
             }
             var url = this.p_external_link.hljs_css(val);
@@ -620,15 +610,15 @@ export default {
         }
     },
     watch: {
-        d_value: function (val, oldVal) {
+        d_value: function(val, oldVal) {
             this.iRender(val);
         },
-        value: function (val, oldVal) {
+        value: function(val, oldVal) {
             if (val !== this.d_value) {
                 this.d_value = val
             }
         },
-        subfield: function (val, oldVal) {
+        subfield: function(val, oldVal) {
             this.s_subfield = val
         },
         d_history_index() {
@@ -638,20 +628,20 @@ export default {
             }
             this.d_value = this.d_history[this.d_history_index]
         },
-        language: function (val) {
+        language: function(val) {
             this.initLanguage();
         },
-        editable: function () {
+        editable: function() {
             this.editableTextarea();
         },
-        defaultOpen: function (val) {
+        defaultOpen: function(val) {
             let default_open_ = val;
             if (!default_open_) {
                 default_open_ = this.subfield ? 'preview' : 'edit';
             }
             return this.s_preview_switch = default_open_ === 'preview' ? true : false;
         },
-        codeStyle: function (val) {
+        codeStyle: function(val) {
             this.codeStyleChange(val)
         }
     },
@@ -663,11 +653,10 @@ export default {
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-    @import "lib/css/scroll.styl"
-    @import "lib/css/mavon-editor.styl"
+@import "lib/css/mavon-editor.styl"
 </style>
 <style lang="css" scoped>
-    .auto-textarea-wrapper {
-        height: 100%;
-    }
+.auto-textarea-wrapper {
+    height: 100%;
+}
 </style>
