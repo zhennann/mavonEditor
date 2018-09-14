@@ -72,6 +72,7 @@ markdown.use(mihe, hljs_opts)
     .use(sup)
     .use(sub)
     .use(container)
+    .use(container, 'warning')
     .use(container, 'hljs-left') /* align left */
     .use(container, 'hljs-center')/* align center */
     .use(container, 'hljs-right')/* align right */
@@ -80,7 +81,6 @@ markdown.use(mihe, hljs_opts)
     .use(footnote)
     .use(insert)
     .use(mark)
-    .use(container)
     .use(miip)
     .use(katex)
     .use(taskLists)

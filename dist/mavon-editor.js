@@ -4676,7 +4676,7 @@ var hljs_opts = {
         }
     }
 };
-markdown.use(mihe, hljs_opts).use(emoji).use(sup).use(sub).use(container).use(container, 'hljs-left').use(container, 'hljs-center').use(container, 'hljs-right').use(deflist).use(abbr).use(footnote).use(insert).use(mark).use(container).use(miip).use(katex).use(taskLists).use(toc);
+markdown.use(mihe, hljs_opts).use(emoji).use(sup).use(sub).use(container).use(container, 'warning').use(container, 'hljs-left').use(container, 'hljs-center').use(container, 'hljs-right').use(deflist).use(abbr).use(footnote).use(insert).use(mark).use(miip).use(katex).use(taskLists).use(toc);
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
