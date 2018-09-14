@@ -4614,11 +4614,11 @@ var keydownListen = function keydownListen($vm) {
 
 
 var markdown_config = {
-    html: true,
-    xhtmlOut: true,
-    breaks: true,
+    html: false,
+    xhtmlOut: false,
+    breaks: false,
     langPrefix: 'lang-',
-    linkify: false,
+    linkify: true,
     typographer: true,
     quotes: '“”‘’'
 };
