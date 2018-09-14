@@ -9,16 +9,27 @@
  * @Copyright: 2017
  */
 
-.markdown-body strong{
+.markdown-body strong {
     font-weight: bolder;
 }
 
 .markdown-body .hljs-center {
     text-align: center;
 }
+
 .markdown-body .hljs-right {
     text-align: right;
 }
+
 .markdown-body .hljs-left {
     text-align: left;
+}
+
+.markdown-body .warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #faebcc;
+    border-radius: 4px;
 }
