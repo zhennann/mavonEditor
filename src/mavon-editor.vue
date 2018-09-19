@@ -95,7 +95,7 @@ import markdown from './lib/mixins/markdown.js'
 import md_toolbar_left from './components/md-toolbar-left.vue'
 import md_toolbar_right from './components/md-toolbar-right.vue'
 import "./lib/font/css/fontello.css"
-import './lib/css/md.css'
+//import './lib/css/md.css'
 export default {
     mixins: [markdown],
     props: { // 是否渲染滚动条样式(webkit)
@@ -231,27 +231,30 @@ export default {
             d_image_file: [],
             d_preview_imgsrc: null, // 图片预览地址
             s_external_link: {
-                markdown_css: function() {
-                    return 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.9.0/github-markdown.min.css';
-                },
+                markdown_css: false,
+                // markdown_css: function() {
+                //     return 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.9.0/github-markdown.min.css';
+                // },
                 hljs_js: function() {
                     return 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js';
                 },
                 hljs_lang: function(lang) {
                     return 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/' + lang + '.min.js';
                 },
-                hljs_css: function(css) {
-                    if (hljsCss[css]) {
-                        return 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/' + css + '.min.css';
-                    }
-                    return '';
-                },
+                hljs_css: false,
+                // hljs_css: function(css) {
+                //     if (hljsCss[css]) {
+                //         return 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/' + css + '.min.css';
+                //     }
+                //     return '';
+                // },
                 katex_js: function() {
                     return 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js';
                 },
-                katex_css: function() {
-                    return 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css';
-                }
+                katex_css: false,
+                // katex_css: function() {
+                //     return 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css';
+                // }
             },
             p_external_link: {}
         };
