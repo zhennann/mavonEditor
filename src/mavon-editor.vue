@@ -99,6 +99,9 @@ import "./lib/font/css/fontello.css"
 export default {
     mixins: [markdown],
     props: { // 是否渲染滚动条样式(webkit)
+        onPreRender: {
+            type: Function,
+        },
         scrollStyle: {
             type: Boolean,
             default: true
@@ -312,6 +315,9 @@ export default {
         return this.mixins[0].data().markdownIt
     },
     methods: {
+        preRender(value) {
+            return !this.onPreRender ? value : this.onPreRender(value);
+        },
         onClickContainer() {
             if (this.$refs.toolbar_left) {
                 this.$refs.toolbar_left.$mouseleave_header_dropdown();
@@ -431,9 +437,9 @@ export default {
         },
         $imgUpdateByUrl(pos, url) {
             var $vm = this;
-            this.markdownIt.image_add(pos, url);
-            this.$nextTick(function() {
-                $vm.d_render = this.markdownIt.render(this.d_value);
+            $vm.markdownIt.image_add(pos, url);
+            $vm.$nextTick(function() {
+                $vm.d_render = $vm.markdownIt.render($vm.preRender($vm.d_value));
             })
         },
         $imgAddByUrl(pos, url) {
@@ -589,7 +595,7 @@ export default {
         },
         iRender() {
             var $vm = this;
-            $vm.$render($vm.d_value, function(res) {
+            $vm.$render($vm.preRender($vm.d_value), function(res) {
                 // render
                 $vm.d_render = res;
                 // change回调
