@@ -67,6 +67,29 @@ var hljs_opts = {
         }
     }
 };
+const audio_opts = {
+  validate: function(params) {
+    return params.trim().match(/^audio$/);
+  },
+  render: function (tokens, idx) {
+    console.log('2',tokens,idx);
+    if (tokens[idx].nesting === 1) {
+      const tokenContent = tokens[idx + 2];
+      if (tokenContent && tokenContent.type === 'inline') {
+        tokenContent.content = '';
+        tokenContent.children = [];
+      }
+      // opening tag
+      return `<div>\n
+<img src="https://cdn.cabloy.org/audio/cover.jpg" style="width:100px;height:100px;">
+      `;
+    } else {
+      // closing tag
+      return '</div>\n';
+    }
+  }
+};
+
 markdown.use(mihe, hljs_opts)
     .use(emoji)
     .use(sup)
@@ -76,6 +99,7 @@ markdown.use(mihe, hljs_opts)
     .use(container, 'hljs-left') /* align left */
     .use(container, 'hljs-center')/* align center */
     .use(container, 'hljs-right')/* align right */
+    .use(container, 'audio',audio_opts) /* audio */
     .use(deflist)
     .use(abbr)
     .use(footnote)

@@ -41,7 +41,7 @@
                 </template>
                 <template slot="right-toolbar-after">
                     右工具栏后
-                </template> -->          
+                </template> -->
             </mavon-editor>
             <button ref="diy" type="button" @click="$click('selftest')" class="op-icon fa fa-mavon-align-left"
                 aria-hidden="true" title="自定义"></button>
@@ -233,7 +233,7 @@
                 alert('save two')
             },
             change (val, render) {
-                console.log('change')
+                // console.log('change')
             },
             opchange (event) {
                 this.d_language = event.target.value;
