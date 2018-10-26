@@ -189,6 +189,9 @@ export default {
         },
         onImageUpload: {
             type: Function
+        },
+        onAudioUpload: {
+            type: Function
         }
     },
     data() {

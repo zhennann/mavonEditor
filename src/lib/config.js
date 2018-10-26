@@ -46,6 +46,7 @@ export const CONFIG = {
         'ul': true,
         'link': true,
         'imagelink': true,
+        'audiolink': true,
         'code': true,
         'table': true,
         'undo': true,

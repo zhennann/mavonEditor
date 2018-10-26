@@ -55,11 +55,39 @@ function $toolbar_left_remove_line_click($vm) {
 }
 // 直接添加链接
 export const toolbar_left_addlink = (type, text, link, $vm) => {
-    let insert_text = {
+    let insert_text;
+    if (type === 'audiolink') {
+      insert_text = {
+        prefix: '::: audio\n\n',
+        subfix: '\n\n:::\n',
+        str:
+`
+{
+  "autoplay": true,
+  "listshow": false,
+  "mode": "singleloop",
+  "music": {
+    "type": "file",
+    "source":
+    [
+      {
+        "name": "${text}",
+        "src": "${link}",
+        "author": "",
+        "cover": ""
+      }
+    ]
+  }
+}
+`
+      };
+    } else {
+      insert_text = {
         prefix: type === 'link' ? `[${text}](` : `![${text}](`,
         subfix: ')',
         str: link
-    };
+      };
+    }
     $vm.insertText($vm.getTextareaDom(), insert_text);
 }
 export const toolbar_left_click = (_type, $vm) => {
@@ -148,6 +176,11 @@ export const toolbar_left_click = (_type, $vm) => {
              prefix: '![](',
              subfix: ')',
              str: $vm.d_words.tl_image
+         },
+         'audiolink': {
+           prefix: '::: audio\n\n',
+           subfix: '\n\n:::\n',
+           str: $vm.d_words.tl_audio
          },
          'code': {
              prefix: '```',

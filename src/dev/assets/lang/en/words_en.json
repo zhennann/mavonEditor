@@ -20,6 +20,8 @@
   "tl_ul": "Ul",
   "tl_link": "Link",
   "tl_image": "Image Link",
+  "tl_audio": "Audio Link",
+  "tl_uploadaudio": "Upload Audios",
   "tl_code": "Code",
   "tl_table": "Table",
   "tl_undo": "Undo",
@@ -49,6 +51,9 @@
   "tl_popup_img_link_title": "Add Image",
   "tl_popup_img_link_text": "Image Text",
   "tl_popup_img_link_addr": "Image Link",
+  "tl_popup_audio_link_title": "Add Audio",
+  "tl_popup_audio_link_text": "Audio Text",
+  "tl_popup_audio_link_addr": "Audio Link",
   "tl_popup_link_sure": "Sure",
   "tl_popup_link_cancel": "Cancel"
 }

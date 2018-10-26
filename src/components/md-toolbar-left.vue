@@ -73,6 +73,16 @@
                 </div>
             </transition>
         </div>
+        <div :disabled="!editable" :class="{'selected': s_audio_dropdown_open}" type="button" v-if="toolbars.audiolink" @click.stop="$mouseenter_audio_dropdown" @mouseleave="$mouseleave_audio_dropdown" @mouseenter="$mouseenter_audio_dropdown"
+                class="op-icon fa fa-mavon-file-audio dropdown dropdown-wrapper"
+                aria-hidden="true">
+            <transition name="fade">
+                <div  class="op-audio popup-dropdown" v-show="s_audio_dropdown_open" @mouseleave="$mouseleave_audio_dropdown" @mouseenter="$mouseenter_audio_dropdown">
+                    <div class="dropdown-item" @click.stop="$toggle_imgLinkAdd('audiolink')"><span>{{d_words.tl_audio}}</span></div>
+                    <div class="dropdown-item" @click.stop="$audioLinkUpload"><span>{{d_words.tl_uploadaudio}}</span></div>
+                </div>
+            </transition>
+        </div>
         <button :disabled="!editable" type="button" v-if="toolbars.code" @click="$clicks('code')"
                 class="op-icon fa fa-mavon-code" aria-hidden="true"
                 :title="`${d_words.tl_code} (ctrl+alt+c)`"></button>
@@ -100,18 +110,19 @@
                 <div class="add-image-link">
                     <i @click.stop.prevent="s_img_link_open = false" class="fa fa-mavon-times"
                        aria-hidden="true"></i>
-                    <h3 class="title">{{link_type == 'link' ? d_words.tl_popup_link_title : d_words.tl_popup_img_link_title}}</h3>
+                    <h3 class="title">{{link_type == 'link' ? d_words.tl_popup_link_title : (link_type == 'imagelink' ? d_words.tl_popup_img_link_title : d_words.tl_popup_audio_link_title)}}</h3>
                     <div class="link-text input-wrapper">
-                        <input ref="linkTextInput" type="text" v-model="link_text" :placeholder="link_type == 'link' ? d_words.tl_popup_link_text : d_words.tl_popup_img_link_text">
+                        <input ref="linkTextInput" type="text" v-model="link_text" :placeholder="link_type == 'link' ? d_words.tl_popup_link_text : (link_type == 'imagelink' ? d_words.tl_popup_img_link_text : d_words.tl_popup_audio_link_text)">
                     </div>
                     <div class="link-addr input-wrapper">
-                        <input type="text" v-model="link_addr" :placeholder="link_type == 'link' ? d_words.tl_popup_link_addr : d_words.tl_popup_img_link_addr">
+                        <input type="text" v-model="link_addr" :placeholder="link_type == 'link' ? d_words.tl_popup_link_addr : (link_type == 'imagelink' ? d_words.tl_popup_img_link_addr : d_words.tl_popup_audio_link_addr)">
                     </div>
                     <div class="op-btn cancel" @click.stop="s_img_link_open = false">{{d_words.tl_popup_link_cancel}}</div>
                     <div class="op-btn sure" @click.stop="$imgLinkAdd()">{{d_words.tl_popup_link_sure}}</div>
                 </div>
             </div>
         </transition>
+
     </div>
 </template>
 <script type="text/ecmascript-6">
@@ -138,6 +149,9 @@
             },
             onImageUpload:{
                 type: Function
+            },
+            onAudioUpload:{
+                type: Function
             }
         },
         data() {
@@ -145,15 +159,17 @@
                 // [index, file]
                 img_file: [[0, null]],
                 img_timer: null,
+                audio_timer: null,
                 header_timer: null,
                 s_img_dropdown_open: false,
+                s_audio_dropdown_open: false,
                 s_header_dropdown_open: false,
                 s_img_link_open: false,
                 trigger: null,
                 num: 0,
                 link_text: '',
                 link_addr: '',
-                link_type: 'link'
+                link_type: 'link', // imagelink audiolink
             }
         },
         methods: {
@@ -169,6 +185,14 @@
                    }).catch(err=>{})
                };
             },
+            $audioLinkUpload(){
+               this.s_audio_dropdown_open = false;
+               if(this.onAudioUpload){
+                   this.onAudioUpload().then(data=>{
+                        this.$emit('toolbar_left_addlink', 'audiolink', data.text, data.addr);
+                   }).catch(err=>{})
+               };
+            },
             $toggle_imgLinkAdd(type) {
                 this.link_type = type;
                 this.link_text = this.link_addr = '';
@@ -177,6 +201,7 @@
                     this.$refs.linkTextInput.focus()
                 })
                 this.s_img_dropdown_open = false;
+                this.s_audio_dropdown_open = false;
             },
             $imgFileListClick(pos) {
                 this.$emit('imgTouch', this.img_file[pos]);
@@ -276,6 +301,18 @@
                     vm.s_img_dropdown_open = false
                 },200)
             },
+            $mouseenter_audio_dropdown() {
+                if (this.editable) {
+                    clearTimeout(this.audio_timer)
+                    this.s_audio_dropdown_open = true
+                }
+            },
+            $mouseleave_audio_dropdown() {
+                let vm = this
+                this.audio_timer = setTimeout(function() {
+                    vm.s_audio_dropdown_open = false
+                },200)
+            },
             $mouseenter_header_dropdown() {
                 if (this.editable) {
                     clearTimeout(this.header_timer)
@@ -301,6 +338,7 @@
             },
             handleClose(e) {
                 this.s_img_dropdown_open = false;
+                this.s_audio_dropdown_open = false;
             }
         }
     }
