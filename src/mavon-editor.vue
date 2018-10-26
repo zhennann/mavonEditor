@@ -2,7 +2,7 @@
     <div :class="[{'fullscreen': s_fullScreen}]" class="v-note-wrapper markdown-body" @click="onClickContainer">
         <!--工具栏-->
         <div class="v-note-op" v-show="toolbarsFlag" :class="{'shadow': boxShadow}">
-            <v-md-toolbar-left ref="toolbar_left" :editable="editable" :d_words="d_words" @toolbar_left_click="toolbar_left_click" @toolbar_left_addlink="toolbar_left_addlink" :toolbars="toolbars" @imgAdd="$imgAdd" @imgDel="$imgDel" @imgTouch="$imgTouch" :image_filter="imageFilter" :onImageUpload="onImageUpload">
+            <v-md-toolbar-left ref="toolbar_left" :editable="editable" :d_words="d_words" @toolbar_left_click="toolbar_left_click" @toolbar_left_addlink="toolbar_left_addlink" :toolbars="toolbars" @imgAdd="$imgAdd" @imgDel="$imgDel" @imgTouch="$imgTouch" :image_filter="imageFilter" :onImageUpload="onImageUpload" :onAudioUpload="onAudioUpload">
                 <slot name="left-toolbar-before" slot="left-toolbar-before" />
                 <slot name="left-toolbar-after" slot="left-toolbar-after" />
             </v-md-toolbar-left>

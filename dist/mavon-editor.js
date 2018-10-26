@@ -19686,7 +19686,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "d_words": _vm.d_words,
       "toolbars": _vm.toolbars,
       "image_filter": _vm.imageFilter,
-      "onImageUpload": _vm.onImageUpload
+      "onImageUpload": _vm.onImageUpload,
+      "onAudioUpload": _vm.onAudioUpload
     },
     on: {
       "toolbar_left_click": _vm.toolbar_left_click,
