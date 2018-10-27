@@ -63,13 +63,13 @@ export const toolbar_left_addlink = (type, text, link, $vm) => {
         str:
 `
 {
-  autoplay: true,
-  audio:
+  "autoplay": true,
+  "audio":
   {
-    name: '${text}',
-    url: '${link}',
-    artist: '',
-    cover: ''
+    "name": "${text}",
+    "url": "${link}",
+    "artist": "",
+    "cover": ""
   }
 }
 `

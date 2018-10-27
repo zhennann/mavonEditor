@@ -4829,7 +4829,7 @@ var toolbar_left_addlink = function toolbar_left_addlink(type, text, link, $vm) 
         insert_text = {
             prefix: '::: audio',
             subfix: ':::\n',
-            str: '\n{\n  autoplay: true,\n  audio:\n  {\n    name: \'' + text + '\',\n    url: \'' + link + '\',\n    artist: \'\',\n    cover: \'\'\n  }\n}\n'
+            str: '\n{\n  "autoplay": true,\n  "audio":\n  {\n    "name": "' + text + '",\n    "url": "' + link + '",\n    "artist": "",\n    "cover": ""\n  }\n}\n'
         };
     } else {
         insert_text = {
