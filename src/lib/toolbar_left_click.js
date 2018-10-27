@@ -58,25 +58,18 @@ export const toolbar_left_addlink = (type, text, link, $vm) => {
     let insert_text;
     if (type === 'audiolink') {
       insert_text = {
-        prefix: '::: audio\n\n',
-        subfix: '\n\n:::\n',
+        prefix: '::: audio',
+        subfix: ':::\n',
         str:
 `
 {
-  "autoplay": true,
-  "listshow": false,
-  "mode": "singleloop",
-  "music": {
-    "type": "file",
-    "source":
-    [
-      {
-        "name": "${text}",
-        "src": "${link}",
-        "author": "",
-        "cover": ""
-      }
-    ]
+  autoplay: true,
+  audio:
+  {
+    name: '${text}',
+    url: '${link}',
+    artist: '',
+    cover: ''
   }
 }
 `
