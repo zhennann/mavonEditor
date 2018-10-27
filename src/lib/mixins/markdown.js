@@ -72,7 +72,6 @@ const audio_opts = {
     return params.trim().match(/^audio$/);
   },
   render: function (tokens, idx) {
-    console.log('2',tokens,idx);
     if (tokens[idx].nesting === 1) {
       const tokenContent = tokens[idx + 2];
       if (tokenContent && tokenContent.type === 'inline') {

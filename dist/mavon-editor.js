@@ -4710,7 +4710,6 @@ var audio_opts = {
         return params.trim().match(/^audio$/);
     },
     render: function render(tokens, idx) {
-        console.log('2', tokens, idx);
         if (tokens[idx].nesting === 1) {
             var tokenContent = tokens[idx + 2];
             if (tokenContent && tokenContent.type === 'inline') {
