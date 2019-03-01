@@ -4717,7 +4717,7 @@ var audio_opts = {
                 tokenContent.children = [];
             }
 
-            return '<div>\n\n<img src="https://cdn.cabloy.org/audio/cover.jpg" style="width:100px;height:100px;">\n      ';
+            return '<div>\n\n<img src="https://cdn.cabloy.com/audio/cover.jpg" style="width:100px;height:100px;">\n      ';
         } else {
             return '</div>\n';
         }

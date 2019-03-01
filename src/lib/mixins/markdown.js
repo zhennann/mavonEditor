@@ -80,7 +80,7 @@ const audio_opts = {
       }
       // opening tag
       return `<div>\n
-<img src="https://cdn.cabloy.org/audio/cover.jpg" style="width:100px;height:100px;">
+<img src="https://cdn.cabloy.com/audio/cover.jpg" style="width:100px;height:100px;">
       `;
     } else {
       // closing tag
