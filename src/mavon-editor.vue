@@ -2,7 +2,7 @@
     <div :class="[{'fullscreen': s_fullScreen}]" class="v-note-wrapper markdown-body" @click="onClickContainer">
         <!--工具栏-->
         <div class="v-note-op" v-show="toolbarsFlag" :class="{'shadow': boxShadow}">
-            <v-md-toolbar-left ref="toolbar_left" :editable="editable" :d_words="d_words" @toolbar_left_click="toolbar_left_click" @toolbar_left_addlink="toolbar_left_addlink" :toolbars="toolbars" @imgAdd="$imgAdd" @imgDel="$imgDel" @imgTouch="$imgTouch" :image_filter="imageFilter" :onImageUpload="onImageUpload" :onAudioUpload="onAudioUpload">
+            <v-md-toolbar-left ref="toolbar_left" :editable="editable" :d_words="d_words" @toolbar_left_click="toolbar_left_click" @toolbar_left_addlink="toolbar_left_addlink" :toolbars="toolbars" @imgAdd="$imgAdd" @imgDel="$imgDel" @imgTouch="$imgTouch" :image_filter="imageFilter" :onImageUpload="onImageUpload" :onAudioUpload="onAudioUpload" :onBlockAdd="onBlockAdd">
                 <slot name="left-toolbar-before" slot="left-toolbar-before" />
                 <slot name="left-toolbar-after" slot="left-toolbar-after" />
             </v-md-toolbar-left>
@@ -95,7 +95,7 @@ import markdown from './lib/mixins/markdown.js'
 import md_toolbar_left from './components/md-toolbar-left.vue'
 import md_toolbar_right from './components/md-toolbar-right.vue'
 import "./lib/font/css/fontello.css"
-//import './lib/css/md.css'
+// import './lib/css/md.css'
 export default {
     mixins: [markdown],
     props: { // 是否渲染滚动条样式(webkit)
@@ -191,6 +191,9 @@ export default {
             type: Function
         },
         onAudioUpload: {
+            type: Function
+        },
+        onBlockAdd: {
             type: Function
         }
     },

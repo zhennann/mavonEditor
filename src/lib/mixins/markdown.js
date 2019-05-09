@@ -32,8 +32,11 @@ var mark = require('markdown-it-mark')
 var taskLists = require('markdown-it-task-lists')
 // container
 var container = require('markdown-it-container')
-//
+// toc
 var toc = require('markdown-it-toc')
+// block
+var block = require('@zhennann/markdown-it-block')
+
 // add target="_blank" to all link
 var defaultRender = markdown.renderer.rules.link_open || function(tokens, idx, options, env, self) {
     return self.renderToken(tokens, idx, options);
@@ -67,38 +70,19 @@ var hljs_opts = {
         }
     }
 };
-const audio_opts = {
-  validate: function(params) {
-    return params.trim().match(/^audio$/);
-  },
-  render: function (tokens, idx) {
-    if (tokens[idx].nesting === 1) {
-      const tokenContent = tokens[idx + 2];
-      if (tokenContent && tokenContent.type === 'inline') {
-        tokenContent.content = '';
-        tokenContent.children = [];
-      }
-      // opening tag
-      return `<div>\n
-<img src="https://cdn.cabloy.com/audio/cover.jpg" style="width:100px;height:100px;">
-      `;
-    } else {
-      // closing tag
-      return '</div>\n';
-    }
-  }
-};
 
 markdown.use(mihe, hljs_opts)
     .use(emoji)
     .use(sup)
     .use(sub)
     .use(container)
-    .use(container, 'warning')
+    .use(container, 'alert-success')
+    .use(container, 'alert-info')
+    .use(container, 'alert-warning')
+    .use(container, 'alert-danger')
     .use(container, 'hljs-left') /* align left */
     .use(container, 'hljs-center')/* align center */
     .use(container, 'hljs-right')/* align right */
-    .use(container, 'audio',audio_opts) /* audio */
     .use(deflist)
     .use(abbr)
     .use(footnote)
@@ -108,6 +92,7 @@ markdown.use(mihe, hljs_opts)
     .use(katex)
     .use(taskLists)
     .use(toc)
+    .use(block)
 
 export default {
     data() {

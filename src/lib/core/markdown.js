@@ -76,6 +76,10 @@ markdown.use(emoji)
     .use(sup)
     .use(sub)
     .use(container)
+    .use(container, 'alert-success')
+    .use(container, 'alert-info')
+    .use(container, 'alert-warning')
+    .use(container, 'alert-danger')
     .use(container, 'hljs-left') /* align left */
     .use(container, 'hljs-center')/* align center */
     .use(container, 'hljs-right')/* align right */

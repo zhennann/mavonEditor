@@ -89,7 +89,10 @@
         <button :disabled="!editable" type="button" v-if="toolbars.table" @click="$clicks('table')"
                 class="op-icon fa fa-mavon-table" aria-hidden="true"
                 :title="`${d_words.tl_table} (ctrl+alt+t)`"></button>
-        <span v-if="toolbars.link || toolbars.imagelink || toolbars.code || toolbars.table"
+        <button :disabled="!editable" type="button" v-if="toolbars.block" @click="$clicks('block')"
+                class="op-icon fa fa-mavon-plus" aria-hidden="true"
+                :title="`${d_words.tl_block} (ctrl+alt+b)`"></button>
+        <span v-if="toolbars.link || toolbars.imagelink || toolbars.code || toolbars.table || toolbars.block"
               class="op-icon-divider"></span>
         <button type="button" v-if="toolbars.undo" @click="$clicks('undo')" class="op-icon fa fa-mavon-undo"
                 aria-hidden="true" :title="`${d_words.tl_undo} (ctrl+z)`"></button>
@@ -147,10 +150,13 @@
                 type: Function,
                 default: null
             },
-            onImageUpload:{
+            onImageUpload: {
                 type: Function
             },
-            onAudioUpload:{
+            onAudioUpload: {
+                type: Function
+            },
+            onBlockAdd: {
                 type: Function
             }
         },
