@@ -1,6 +1,6 @@
 {
   "name": "@zhennann/mavon-editor",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "Vue markdown editor",
   "main": "dist/mavon-editor.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "highlight.js-async-webpack": "^1.0.4"
   },
   "devDependencies": {
-    "@zhennann/markdown-it-block": "^1.0.3",
+    "@zhennann/markdown-it-block": "^1.0.4",
     "auto-textarea": "^1.4.0",
     "autoprefixer": "^8.3.0",
     "axios": "^0.16.2",
