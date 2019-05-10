@@ -3084,9 +3084,10 @@ module.exports = Component.exports
 
 
 module.exports = function block_plugin(md, options) {
-  options = options || {};
 
   function blockRender(tokens, idx /* _options, env, self */) {
+    // blockTitle
+    var blockTitle = options.utils.text('Block');
     // block
     var token = tokens[idx];
     var blockName = token.info.trim().split(' ', 2)[0];
@@ -3102,7 +3103,7 @@ module.exports = function block_plugin(md, options) {
     // error
     if (errorMessage) {
       return `<div class="alert-danger">
-<p><strong>Block: ${md.utils.escapeHtml(blockName)}</strong></p>
+<p><strong>${blockTitle}: ${md.utils.escapeHtml(blockName)}</strong></p>
 <p>${md.utils.escapeHtml(errorMessage)}</p>
 <pre><code>${md.utils.escapeHtml(token.content)}</code></pre>
 </div>
@@ -3113,13 +3114,13 @@ module.exports = function block_plugin(md, options) {
       // placeholder
       var res = JSON.stringify(content, null, 2);
       return `<div class="alert-info">
-<p><strong>Block: ${md.utils.escapeHtml(blockName)}</strong></p>
+<p><strong>${blockTitle}: ${md.utils.escapeHtml(blockName)}</strong></p>
 <pre><code>${md.utils.escapeHtml(res)}</code></pre>
 </div>
 `;
     }
     // block
-    return block.render({ md, token, content, block });
+    return block.render({ md, options, block, token, content });
   }
 
   function blockRuler(state, startLine, endLine, silent) {
@@ -4841,7 +4842,15 @@ var hljs_opts = {
     }
 };
 
-markdown.use(mihe, hljs_opts).use(emoji).use(sup).use(sub).use(container).use(container, 'alert-success').use(container, 'alert-info').use(container, 'alert-warning').use(container, 'alert-danger').use(container, 'hljs-left').use(container, 'hljs-center').use(container, 'hljs-right').use(deflist).use(abbr).use(footnote).use(insert).use(mark).use(miip).use(katex).use(taskLists).use(toc).use(block);
+var blockOptions = {
+    utils: {
+        text: function text(arg) {
+            return arg;
+        }
+    }
+};
+
+markdown.use(mihe, hljs_opts).use(emoji).use(sup).use(sub).use(container).use(container, 'alert-success').use(container, 'alert-info').use(container, 'alert-warning').use(container, 'alert-danger').use(container, 'hljs-left').use(container, 'hljs-center').use(container, 'hljs-right').use(deflist).use(abbr).use(footnote).use(insert).use(mark).use(miip).use(katex).use(taskLists).use(toc).use(block, blockOptions);
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {

@@ -71,6 +71,14 @@ var hljs_opts = {
     }
 };
 
+var blockOptions = {
+    utils:{
+        text(arg) {
+           return arg;
+        }
+    }
+}
+
 markdown.use(mihe, hljs_opts)
     .use(emoji)
     .use(sup)
@@ -92,7 +100,7 @@ markdown.use(mihe, hljs_opts)
     .use(katex)
     .use(taskLists)
     .use(toc)
-    .use(block)
+    .use(block,blockOptions)
 
 export default {
     data() {
