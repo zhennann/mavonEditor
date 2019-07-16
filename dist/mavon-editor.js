@@ -4850,7 +4850,7 @@ var blockOptions = {
     }
 };
 
-markdown.use(mihe, hljs_opts).use(emoji).use(sup).use(sub).use(container).use(container, 'alert-success').use(container, 'alert-info').use(container, 'alert-warning').use(container, 'alert-danger').use(container, 'hljs-left').use(container, 'hljs-center').use(container, 'hljs-right').use(deflist).use(abbr).use(footnote).use(insert).use(mark).use(miip).use(katex).use(taskLists).use(toc).use(block, blockOptions);
+markdown.use(mihe, hljs_opts).use(emoji).use(sup).use(sub).use(container).use(container, 'comment-quot').use(container, 'alert-success').use(container, 'alert-info').use(container, 'alert-warning').use(container, 'alert-danger').use(container, 'hljs-left').use(container, 'hljs-center').use(container, 'hljs-right').use(deflist).use(abbr).use(footnote).use(insert).use(mark).use(miip).use(katex).use(taskLists).use(toc).use(block, blockOptions);
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
