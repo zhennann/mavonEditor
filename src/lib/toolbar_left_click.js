@@ -66,9 +66,9 @@ export const toolbar_left_addlink = (type, text, link, $vm) => {
     let insert_text;
     if (type === 'block') {
        insert_text = {
-        prefix: `$$$ ${text}\n`,
+        prefix: `\n$$$ ${text}\n`,
         subfix: '\n$$$\n',
-        str: JSON.stringify(link,null,2)
+        str: JSON5.stringify(link,null,2)
       };
     }
     else if (type === 'audiolink') {
