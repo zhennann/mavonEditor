@@ -100,7 +100,7 @@ export default {
     mixins: [markdown],
     props: { // 是否渲染滚动条样式(webkit)
         onPreRender: {
-            type: Function,
+            type: Function
         },
         scrollStyle: {
             type: Boolean,
@@ -260,12 +260,13 @@ export default {
                 katex_js: function() {
                     return 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js';
                 },
-                katex_css: false,
+                katex_css: false
                 // katex_css: function() {
                 //     return 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css';
                 // }
             },
-            p_external_link: {}
+            p_external_link: {},
+            editorReady: false
         };
     },
     created() {
@@ -302,19 +303,21 @@ export default {
         this.d_value = this.value;
         // 将help添加到末尾
         document.body.appendChild(this.$refs.help);
+        //
         $vm.loadExternalLink('markdown_css', 'css');
         $vm.loadExternalLink('katex_css', 'css')
         $vm.loadExternalLink('katex_js', 'js', function() {
-            $vm.initLanguage();
-            $vm.iRender();
+            $vm.loadExternalLinkCallback();
         })
         $vm.loadExternalLink('hljs_js', 'js', function() {
-            $vm.initLanguage();
-            $vm.iRender();
+            $vm.loadExternalLinkCallback();
         })
-        $vm.codeStyleChange($vm.codeStyle, true)
+        $vm.codeStyleChange($vm.codeStyle, true);
+        // ready
+        this.editorReady = true;
     },
     beforeDestroy() {
+        this.editorReady = false;
         document.body.removeChild(this.$refs.help);
     },
     getMarkdownIt() {
@@ -329,6 +332,11 @@ export default {
                 this.$refs.toolbar_left.$mouseleave_header_dropdown();
                 this.$refs.toolbar_left.$mouseleave_img_dropdown();
             }
+        },
+        loadExternalLinkCallback() {
+            if (!this.editorReady) return;
+            this.initLanguage();
+            this.iRender();
         },
         loadExternalLink(name, type, callback) {
             if (typeof this.p_external_link[name] !== 'function') {

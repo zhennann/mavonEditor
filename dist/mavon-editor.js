@@ -3820,7 +3820,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 },
                 katex_css: false
             },
-            p_external_link: {}
+            p_external_link: {},
+            editorReady: false
         };
     },
     created: function created() {
@@ -3849,19 +3850,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.d_value = this.value;
 
         document.body.appendChild(this.$refs.help);
+
         $vm.loadExternalLink('markdown_css', 'css');
         $vm.loadExternalLink('katex_css', 'css');
         $vm.loadExternalLink('katex_js', 'js', function () {
-            $vm.initLanguage();
-            $vm.iRender();
+            $vm.loadExternalLinkCallback();
         });
         $vm.loadExternalLink('hljs_js', 'js', function () {
-            $vm.initLanguage();
-            $vm.iRender();
+            $vm.loadExternalLinkCallback();
         });
         $vm.codeStyleChange($vm.codeStyle, true);
+
+        this.editorReady = true;
     },
     beforeDestroy: function beforeDestroy() {
+        this.editorReady = false;
         document.body.removeChild(this.$refs.help);
     },
     getMarkdownIt: function getMarkdownIt() {
@@ -3877,6 +3880,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$refs.toolbar_left.$mouseleave_header_dropdown();
                 this.$refs.toolbar_left.$mouseleave_img_dropdown();
             }
+        },
+        loadExternalLinkCallback: function loadExternalLinkCallback() {
+            if (!this.editorReady) return;
+            this.initLanguage();
+            this.iRender();
         },
         loadExternalLink: function loadExternalLink(name, type, callback) {
             if (typeof this.p_external_link[name] !== 'function') {
